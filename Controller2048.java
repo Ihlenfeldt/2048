@@ -18,6 +18,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static final int FRAME_WIDTH = 600;
 	public static final int FRAME_HEIGHT = 600;
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
+	public static final int ARRAY_WIDTH = 4;
+	public static final int ARRAY_HEIGHT = 4;
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
@@ -58,7 +60,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		
 	}
 	private void newGame() {
-		
+		OriginalGameBoard game2048 = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
 	}
 	
 	
