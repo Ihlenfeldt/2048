@@ -59,7 +59,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		return false;
 		
 	}
-	private void newGame() {
+	private static void newGame() {
 		OriginalGameBoard game2048 = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
 	}
 	
@@ -121,6 +121,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Controller2048 myController = new Controller2048("Hello", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
+		newGame();
 	}
 
 }
