@@ -1,16 +1,32 @@
 package game2048;
 
+import java.util.Random;
+
 public class OriginalGameBoard implements GameBoard {
-	protected Integer[][] gameArray;
+	protected int[][] gameArray;
 	
 	public OriginalGameBoard(int width, int height) {
-		gameArray = new Integer[height][width];
-		fillArray();
+		gameArray = new int[height][width];
+		fillGameBoard(width, height);
+		printArray();
 		
 	}
-	private void fillArray() {
+	private void fillGameBoard(int width, int height) {
+		Random randomInt = new Random();
+		boolean stillPicking = true;
 		
+		gameArray[randomInt.nextInt(height)][randomInt.nextInt(width)] = 2;
+		while(stillPicking) {
+			int firstRandom = randomInt.nextInt(height);
+			int secondRandom = randomInt.nextInt(width);
+			if(gameArray[firstRandom][secondRandom] == 0) {
+				gameArray[firstRandom][secondRandom] = 2;
+				stillPicking = false;
+			}
+			
+		}
 	}
+	
 	@Override
 	public void combine() {
 		// TODO Auto-generated method stub
@@ -48,6 +64,15 @@ public class OriginalGameBoard implements GameBoard {
 	
 	public void printArray() {
 		
+		for(int i = 0; i < gameArray.length; i++)
+		{
+			for(int j = 0; j < gameArray.length; j++)
+			{
+				System.out.print(gameArray[i][j]);
+				System.out.print(" ");
+			}
+			System.out.println("");
+		}
 	}
 
 }

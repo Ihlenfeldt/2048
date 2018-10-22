@@ -18,8 +18,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static final int FRAME_WIDTH = 600;
 	public static final int FRAME_HEIGHT = 600;
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-	public static final int ARRAY_WIDTH = 4;
-	public static final int ARRAY_HEIGHT = 4;
+	public static final int ARRAY_WIDTH = 8;
+	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
@@ -122,6 +122,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		// TODO Auto-generated method stub
 		Controller2048 myController = new Controller2048("Hello", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
 		newGame();
+		
 	}
 
 }
