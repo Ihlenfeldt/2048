@@ -37,6 +37,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static final int KEY_A = 65;
 	public static final int KEY_SPACE = 32;
 	public static final int KEY_ESC = 27;
+	public static boolean gameIsReady = false;
+	public static int time = 0;
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
@@ -96,7 +98,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			if(gameType == 0 && time > 10000)
 			{
 				time = 0;
-				gameboard.populateNewBlock();
+				//game2048. //populate new block
 			}
 		
 		}
@@ -249,9 +251,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		
 	}
 	
-	public boolean isGameReady()
-	{
-		if()
-	}
+	
 
 }
