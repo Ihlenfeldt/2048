@@ -87,11 +87,23 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	
 	@Override
-	public void run() {
+	public void run() 
+	{
+		if(gameIsReady)
+		{
+			time++;
+			
+			if(gameType == 0 && time > 10000)
+			{
+				time = 0;
+				gameboard.populateNewBlock();
+			}
+		
+		}
 		// TODO Auto-generated method stub
 		//If game is ready
 		//Move block
-		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -235,6 +247,11 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		Controller2048 myController = new Controller2048("Hello", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
 		newGame();
 		
+	}
+	
+	public boolean isGameReady()
+	{
+		if()
 	}
 
 }
