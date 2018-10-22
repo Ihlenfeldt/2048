@@ -1,5 +1,6 @@
 package game2048;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,10 @@ public class Block2048
 	BufferedImage img;
 	BufferedImage num;
 	boolean lockedIn;
+	int blockWidth;
+	int blockHeight;
+	int spaceBetween;
+    int edgeSpace;
 
 	public Block2048(int passedValue)
 	{
@@ -24,10 +29,10 @@ public class Block2048
 		try 
 		{
 		    img = ImageIO.read(new File("BlockImage.jpg"));
-		    int blockWidth = 67;
-		    int blockHeight = 67;
-		    int spaceBetween = 8;
-		    int edgeSpace = 5;
+		    blockWidth = 67;
+		    blockHeight = 67;
+		    spaceBetween = 8;
+		    edgeSpace = 5;
 		    switch(blockValue)
 		    {
 		    case 2:
@@ -70,14 +75,6 @@ public class Block2048
 		    	num = img.getSubimage(edgeSpace, edgeSpace, blockWidth, blockHeight);
 		    	break;
 		    
-	    	
-		    
-		    
-		    
-		    
-		    
-		    
-		    
 		    }
 		    
 		} catch (IOException e) 
@@ -94,6 +91,49 @@ public class Block2048
 	public void setBlockValue(int passedValue) 
 	{
 		this.blockValue = passedValue;
+		switch(blockValue)
+	    {
+	    case 2:
+	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 4:
+	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 8:
+	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 16:
+	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace, blockWidth, blockHeight);
+	    	break;
+	    case 32:
+	    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace, blockWidth, blockHeight);
+	    	break;
+	    case 64:
+	    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 128:
+	    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 256:
+	    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 512:
+		    num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 1024:
+	    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 2048:
+	    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+	    	break;
+	    case 4096:
+	    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace, blockWidth, blockHeight);
+	    	break;
+	    case 8192:
+	    	num = img.getSubimage(edgeSpace, edgeSpace, blockWidth, blockHeight);
+	    	break;
+	    
+	    }
 	}
 	
 	public int getX()
@@ -126,11 +166,11 @@ public class Block2048
 	
 	public boolean isMoving() 
 	{
-		return false;
+		return !lockedIn;
 	}
 	
-	public void drawBlock() 
+	public void drawBlock(Graphics g) 
 	{
-		
+		g.drawImage(img, 0, 0, blockWidth, blockHeight, null);
 	}
 }
