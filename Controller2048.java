@@ -39,11 +39,14 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static final int KEY_ESC = 27;
 	public static boolean gameIsReady = false;
 	public static int time = 0;
+	
+	static OriginalGameBoard myGame; 
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
+	
 	
 	//Keeps track of game type Original = 0, Russian = 1
 	private int gameType = 0;
@@ -83,8 +86,9 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		return false;
 		
 	}
-	private static void newGame() {
-		OriginalGameBoard game2048 = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
+	public static void newGame() {
+		myGame = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
+		
 	}
 	
 	
@@ -144,15 +148,20 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		if(gameType == 0) {
 			switch(keyPressed_Code) {
 			case UP_ARROW: System.out.println("Up Arrow");
+			myGame.moveUp();
 			break;
 			
 			case DOWN_ARROW: System.out.println("Down Arrow");
+			myGame.moveDown();
 			break;
 			
 			case RIGHT_ARROW:System.out.println("Right Arrow");
+			myGame.moveRight();
+			//myGame.printArray();
 			break;
 			
 			case LEFT_ARROW:System.out.println("Left Arrow");
+			myGame.moveLeft();
 			break;
 			
 			case NUMPAD_6:
