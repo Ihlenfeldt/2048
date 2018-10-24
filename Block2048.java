@@ -28,6 +28,7 @@ public class Block2048
 		
 		try 
 		{
+			//Read in image 
 		    img = ImageIO.read(new File("BlockImage.jpg"));
 		    blockWidth = 67;
 		    blockHeight = 67;

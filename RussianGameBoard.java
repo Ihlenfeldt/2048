@@ -3,6 +3,10 @@ package game2048;
 public class RussianGameBoard implements GameBoard {
 
 	
+	public RussianGameBoard(int arrayWidth, int arrayHeight) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void combine() {
 		// TODO Auto-generated method stub
