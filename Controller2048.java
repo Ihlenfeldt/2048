@@ -82,11 +82,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		
 	}
 	
-	private boolean isGameOver() {
+	private boolean isGameOver() 
+	{
 		return false;
 		
 	}
-	public static void newGame() {
+	public static void newGame() 
+	{
 		myGame = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
 		
 	}
