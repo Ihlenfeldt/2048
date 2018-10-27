@@ -85,8 +85,14 @@ public class OriginalGameBoard implements GameBoard
 	@Override
 	public boolean isGameOver() 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		boolean gameOver = false;
+		if(isFull())
+		{
+			if(isThereValidMove()== false) {
+				gameOver = true;
+			}
+		}
+		return gameOver;
 	}
 
 	@Override
@@ -117,9 +123,9 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-	
-		printArray();
 		populate(length,height);
+		printArray();
+		
 	}
 
 	@Override
@@ -150,9 +156,9 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-	
-		printArray();
 		populate(length,height);
+		printArray();
+		
 	}
 
 	@Override
@@ -182,9 +188,9 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-	
-		printArray();
 		populate(length,height);
+		printArray();
+	
 	}
 
 	@Override
@@ -216,9 +222,9 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-	
-		printArray();
 		populate(length,height);
+		printArray();
+		
 	}
 	
 	public boolean isThereValidMove()
@@ -241,27 +247,27 @@ public class OriginalGameBoard implements GameBoard
 	}
 
 	@Override
-	public int lookUp() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int lookUp(int i, int j) {
+		
+		return gameArray[i-1][j];
 	}
 
 	@Override
-	public int lookRight() {
+	public int lookRight(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return gameArray[i][j+1];
 	}
 
 	@Override
-	public int lookDown() {
+	public int lookDown(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return gameArray[i+1][j];
 	}
 
 	@Override
-	public int lookLeft() {
+	public int lookLeft(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return gameArray[i][j-1];
 	}
 
 	@Override

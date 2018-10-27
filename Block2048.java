@@ -15,6 +15,7 @@ public class Block2048
 	BufferedImage img;
 	BufferedImage num;
 	boolean lockedIn;
+	boolean newCombination = false;
 	int blockWidth;
 	int blockHeight;
 	int spaceBetween;
@@ -163,6 +164,14 @@ public class Block2048
 	public void setLockedIn(boolean isLocked)
 	{
 		lockedIn = isLocked;
+	}
+	
+	public boolean isNewCombination(){
+		return newCombination;
+	}
+	
+	public void setNewCombination(boolean passedNewCombination) {
+		this.newCombination = passedNewCombination;
 	}
 	
 	public boolean isMoving() 

@@ -9,14 +9,7 @@ public class RussianGameBoard implements GameBoard {
 
 	@Override
 	public void combine() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean gameOver() {
-		// TODO Auto-generated method stub
-		return false;
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
@@ -47,6 +40,54 @@ public class RussianGameBoard implements GameBoard {
 
 	@Override
 	public void moveDown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isGameOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int lookUp(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lookRight(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lookDown(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lookLeft(int i, int j) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void populate(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isFull() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void draw() {
 		// TODO Auto-generated method stub
 		
 	}
