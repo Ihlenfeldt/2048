@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 
 public class Block2048 
 {
@@ -20,6 +21,7 @@ public class Block2048
 	int blockHeight;
 	int spaceBetween;
     int edgeSpace;
+    JLabel blockJLabel;
 
 	public Block2048(int passedValue)
 	{
@@ -30,11 +32,19 @@ public class Block2048
 		try 
 		{
 			//Read in image 
-		    img = ImageIO.read(new File("BlockImage.jpg"));
+		    img = ImageIO.read(new File("BlockImage.png"));
 		    blockWidth = 67;
 		    blockHeight = 67;
 		    spaceBetween = 8;
 		    edgeSpace = 5;
+		    
+		    blockJLabel = new JLabel();
+	        blockJLabel.setBounds (10, 10, 10, 10); // arbitrary, will change later
+	        
+	        Controller2048.gameFrame2048.getContentPane().add(blockJLabel);
+	        blockJLabel.setVisible(false);
+	        blockJLabel.setVisible(true);
+		    
 		    switch(blockValue)
 		    {
 		    case 2:
@@ -81,7 +91,8 @@ public class Block2048
 		    
 		} catch (IOException e) 
 		{
-			
+			System.out.println("Image reading error!");
+			e.printStackTrace();
 		}
 	}
 	
@@ -179,8 +190,17 @@ public class Block2048
 		return !lockedIn;
 	}
 	
-	public void drawBlock(Graphics g) 
+	public void drawBlock(int width, int heigth) 
 	{
-		g.drawImage(img, 0, 0, blockWidth, blockHeight, null);
+		System.out.println("Num: " + num);
+		System.out.println("X: " + xCoord);
+		System.out.println("Y: " + yCoord);
+		System.out.println("Block Dimension: " + blockWidth);
+		
+		
+		 //blockJLabel.setIcon(num);
+		 
+		 
+		 //g.drawImage(num, xCoord, yCoord, blockWidth, blockHeight, null);
 	}
 }

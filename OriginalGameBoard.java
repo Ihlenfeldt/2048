@@ -1,28 +1,41 @@
 package game2048;
 
+
+import java.awt.Graphics;
 import java.util.Random;
 
 public class OriginalGameBoard implements GameBoard 
 {
-	protected int[][] gameArray;
+	protected Block2048[][] gameArray;
 	int length = 0;
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	
 	public OriginalGameBoard(int width, int height) 
 	{
-		gameArray = new int[height][width];
+		gameArray = new Block2048[height][width];
 		length = gameArray.length;
 		fillGameBoard(width, height);
 		capacity = width*height;
+	
 		printArray();
 
 	}
 	
 	private void fillGameBoard(int width, int height) 
 	{
-		populate(width,height);
-		populate(width,height);
+		for(int i = 0; i < length; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				gameArray[i][j] = new Block2048(2);
+				gameArray[i][j].setX(i*67);
+				gameArray[i][j].setY(i*67);
+			}
+			
+		}
+		//populate(width,height);
+		//populate(width,height);
 	}
 	
 	public void populate(int width, int height) 
@@ -34,15 +47,15 @@ public class OriginalGameBoard implements GameBoard
 		while(stillPicking) {
 			int firstRandom = randomInt.nextInt(height);
 			int secondRandom = randomInt.nextInt(width);
-			if(gameArray[firstRandom][secondRandom] == 0) 
+			if(gameArray[firstRandom][secondRandom].getValue() == 0) 
 			{
 				if(whatNumber > 0.5) 
 				{
-					gameArray[firstRandom][secondRandom] = 4;
+					gameArray[firstRandom][secondRandom] = new Block2048(4);
 				}
 				else
 				{
-					gameArray[firstRandom][secondRandom] = 2;
+					gameArray[firstRandom][secondRandom] = new Block2048(2);
 				}
 				
 				stillPicking = false;
@@ -105,7 +118,7 @@ public class OriginalGameBoard implements GameBoard
 			int holder = -1;
 			for(int j = length-1; j > 0; j--) 
 			{
-				if(gameArray[i][j]==0) 
+				if(gameArray[i][j].getValue() == 0) 
 				{
 					holder = j;
 					break;
@@ -114,10 +127,10 @@ public class OriginalGameBoard implements GameBoard
 			if(holder !=-1){
 				for(int k = holder -1; k>=0; k--) 
 				{
-					if(gameArray[i][k] != 0) 
+					if(gameArray[i][k].getValue() != 0) 
 					{
 						gameArray[i][holder] = gameArray[i][k];
-						gameArray[i][k] = 0;
+						gameArray[i][k].setBlockValue(0);
 						holder --;
 					}
 				}
@@ -138,7 +151,7 @@ public class OriginalGameBoard implements GameBoard
 			int holder = -1;
 			for(int j = 0; j < length; j++) 
 			{
-				if(gameArray[i][j]==0) 
+				if(gameArray[i][j].getValue() == 0) 
 				{
 					holder = j;
 					break;
@@ -147,10 +160,10 @@ public class OriginalGameBoard implements GameBoard
 			if(holder !=-1){
 				for(int k = holder +1; k<length; k++) 
 				{
-					if(gameArray[i][k] != 0) 
+					if(gameArray[i][k].getValue() != 0) 
 					{
 						gameArray[i][holder] = gameArray[i][k];
-						gameArray[i][k] = 0;
+						gameArray[i][k].setBlockValue(0);
 						holder ++;
 					}
 				}
@@ -171,7 +184,7 @@ public class OriginalGameBoard implements GameBoard
 			int holder = -1;
 			for(int j = 0; j < length-1; j++) 
 			{
-				if(gameArray[j][i]==0) {
+				if(gameArray[j][i].getValue() == 0) {
 					holder = j;
 					break;
 				}
@@ -179,10 +192,10 @@ public class OriginalGameBoard implements GameBoard
 			if(holder !=-1){
 				for(int k = holder +1; k < length; k++) 
 				{
-					if(gameArray[k][i] != 0) 
+					if(gameArray[k][i].getValue() != 0) 
 					{
 						gameArray[holder][i] = gameArray[k][i];
-						gameArray[k][i] = 0;
+						gameArray[k][i].setBlockValue(0);
 						holder ++;
 					}
 				}
@@ -203,20 +216,20 @@ public class OriginalGameBoard implements GameBoard
 			int holder = -1;
 			for(int j = length-1; j > 0; j--) 
 			{
-				if(gameArray[j][i]==0) 
+				if(gameArray[j][i].getValue() == 0) 
 				{
 					holder = j;
 					break;
 				}
 			}
-			if(holder !=-1)
+			if(holder != -1)
 			{
-				for(int k = holder -1; k>=0; k--) 
+				for(int k = holder - 1; k >= 0; k--) 
 				{
-					if(gameArray[k][i] != 0) 
+					if(gameArray[k][i].getValue() != 0) 
 					{
 						gameArray[holder][i] = gameArray[k][i];
-						gameArray[k][i] = 0;
+						gameArray[k][i].setBlockValue(0);
 						holder --;
 					}
 				}
@@ -239,41 +252,54 @@ public class OriginalGameBoard implements GameBoard
 		{
 			for(int j = 0; j < length; j++)
 			{
-				System.out.print(gameArray[i][j]);
-				System.out.print(" ");
+				System.out.print(gameArray[i][j].getValue() + " ");
 			}
 			System.out.println("");
 		}
 	}
 
 	@Override
-	public int lookUp(int i, int j) {
+	public Block2048 lookUp(int i, int j) {
 		
 		return gameArray[i-1][j];
 	}
 
 	@Override
-	public int lookRight(int i, int j) {
+	public Block2048 lookRight(int i, int j) {
 		// TODO Auto-generated method stub
 		return gameArray[i][j+1];
 	}
 
 	@Override
-	public int lookDown(int i, int j) {
+	public Block2048 lookDown(int i, int j) {
 		// TODO Auto-generated method stub
 		return gameArray[i+1][j];
 	}
 
 	@Override
-	public int lookLeft(int i, int j) {
+	public Block2048 lookLeft(int i, int j) {
 		// TODO Auto-generated method stub
 		return gameArray[i][j-1];
 	}
 
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
+	public void draw( int width, int height) 
+	{
+		for(int i = 0; i < length; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				if(gameArray[i][j].getValue() != 0)
+				{
+					
+					gameArray[i][j].drawBlock(width, height);
+				}
+			}
+		}
+
 		
 	}
 
+	
+	
 }

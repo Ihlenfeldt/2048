@@ -45,6 +45,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static int time;
 	static GameBoard myGame; 
 	public static boolean finished;
+	public static Graphics g;
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
@@ -55,7 +56,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	//Keeps track of game type Original = 0, Russian = 1
 	private static int gameType = 0;
 	
-	private JFrame gameFrame2048;
+	public static JFrame gameFrame2048;
 	private Container contentPane2048;
 	private java.util.Timer universalGameTimer = new java.util.Timer();
 	
@@ -65,6 +66,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
 		gameFrame2048 = new JFrame(JFrameTitle);
 		gameFrame2048.setSize(windowWidth, windowHeight);
+		
+		
 		
 		//Get screen size
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -77,6 +80,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
+		
+		
 		
 		//Create content pane for main menu
 		
@@ -111,7 +116,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		finished = false;
 		gameIsReady = true;
 		time = 0;
-		myGame.draw();
+		myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
 		
 	}
 	
@@ -139,15 +144,15 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 					else
 					{
 						time = 0;
-						myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
-						myGame.draw();
+						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
+						//myGame.draw(g,FRAME_WIDTH,FRAME_HEIGHT);
 					}
 				}
 			
 			}
 			else //Game is not finished, but also not ready, so regenerate
 			{
-				newGame();
+				//newGame();
 			}
 		}
 		else //Game Type is 1 (Russian)
