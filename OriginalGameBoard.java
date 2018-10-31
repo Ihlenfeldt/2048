@@ -4,6 +4,8 @@ package game2048;
 import java.awt.Graphics;
 import java.util.Random;
 
+import javax.swing.JFrame;
+
 public class OriginalGameBoard implements GameBoard 
 {
 	protected Block2048[][] gameArray;
@@ -11,31 +13,31 @@ public class OriginalGameBoard implements GameBoard
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	
-	public OriginalGameBoard(int width, int height) 
+	public OriginalGameBoard(JFrame frame, int width, int height) 
 	{
 		gameArray = new Block2048[height][width];
 		length = gameArray.length;
-		fillGameBoard(width, height);
+		fillGameBoard(frame, width, height);
 		capacity = width*height;
 	
 		printArray();
 
 	}
 	
-	private void fillGameBoard(int width, int height) 
+	private void fillGameBoard(JFrame frame, int width, int height) 
 	{
 		for(int i = 0; i < length; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j] = new Block2048(2);
-				gameArray[i][j].setX(i*67);
-				gameArray[i][j].setY(i*67);
+				gameArray[j][i] = new Block2048(frame, 0);
+				gameArray[j][i].setX(j*67);
+				gameArray[j][i].setY(i*67);
 			}
 			
 		}
-		//populate(width,height);
-		//populate(width,height);
+		populate(width,height);
+		populate(width,height);
 	}
 	
 	public void populate(int width, int height) 
@@ -51,11 +53,11 @@ public class OriginalGameBoard implements GameBoard
 			{
 				if(whatNumber > 0.5) 
 				{
-					gameArray[firstRandom][secondRandom] = new Block2048(4);
+					gameArray[firstRandom][secondRandom].setBlockValue(4);
 				}
 				else
 				{
-					gameArray[firstRandom][secondRandom] = new Block2048(2);
+					gameArray[firstRandom][secondRandom].setBlockValue(2);;
 				}
 				
 				stillPicking = false;
@@ -289,17 +291,8 @@ public class OriginalGameBoard implements GameBoard
 		{
 			for(int j = 0; j < length; j++)
 			{
-				if(gameArray[i][j].getValue() != 0)
-				{
-					
-					gameArray[i][j].drawBlock(width, height);
-				}
+				gameArray[i][j].drawBlock(height/4, width/4);
 			}
 		}
-
-		
 	}
-
-	
-	
 }

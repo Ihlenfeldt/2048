@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Block2048 
@@ -21,14 +23,26 @@ public class Block2048
 	int blockHeight;
 	int spaceBetween;
     int edgeSpace;
+    ImageIcon pic = new ImageIcon();
     JLabel blockJLabel;
+    JFrame blockJFrame;
+    
+    
 
-	public Block2048(int passedValue)
+	public Block2048(JFrame frame, int passedValue)
 	{
 		this.blockValue = passedValue;
 		lockedIn = true;
 		//Setting an image to the block depending on its value
 		
+		blockJFrame = frame;
+
+        blockJLabel = new JLabel();
+        blockJLabel.setBounds (10, 10, 10, 10); // arbitrary, will change later
+        blockJFrame.getContentPane().add(blockJLabel);
+        blockJLabel.setVisible(false);
+        blockJLabel.setVisible(true);
+
 		try 
 		{
 			//Read in image 
@@ -47,47 +61,55 @@ public class Block2048
 		    
 		    switch(blockValue)
 		    {
+		    case 0:
+		    	num = null;
+		    	break;
 		    case 2:
 		    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
 		    	break;
 		    case 4:
-		    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockWidth, edgeSpace + 3*spaceBetween + 3*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 8:
-		    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + spaceBetween + blockWidth, edgeSpace + 3*spaceBetween + 3*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 16:
-		    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace, edgeSpace + 3*spaceBetween + 3*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 32:
-		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace , edgeSpace + 2*spaceBetween + 2*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 64:
-		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + spaceBetween + blockWidth, edgeSpace + 2*spaceBetween + 2*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 128:
-		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockWidth, edgeSpace + 2*spaceBetween + 2*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 256:
-		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockWidth, edgeSpace + 2*spaceBetween + 2*blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 512:
-			    num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+			    num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockWidth, edgeSpace + spaceBetween + blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 1024:
-		    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + 2*spaceBetween + 2*blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockWidth, edgeSpace + spaceBetween + blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 2048:
-		    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace + spaceBetween + blockWidth, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace + spaceBetween + blockWidth, edgeSpace + spaceBetween + blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 4096:
-		    	num = img.getSubimage(edgeSpace + spaceBetween + blockHeight, edgeSpace, blockWidth, blockHeight);
+		    	num = img.getSubimage(edgeSpace, edgeSpace + spaceBetween + blockHeight, blockWidth, blockHeight);
 		    	break;
 		    case 8192:
 		    	num = img.getSubimage(edgeSpace, edgeSpace, blockWidth, blockHeight);
 		    	break;
 		    
 		    }
+		    if(num != null)
+		    {
+		    	pic = new ImageIcon (num);
+		    }
+		  
 		    
 		} catch (IOException e) 
 		{
@@ -147,6 +169,10 @@ public class Block2048
 	    	break;
 	    
 	    }
+		if(num != null)
+	    {
+	    	pic = new ImageIcon (num);
+	    }
 	}
 	
 	public int getX()
@@ -192,15 +218,13 @@ public class Block2048
 	
 	public void drawBlock(int width, int heigth) 
 	{
-		System.out.println("Num: " + num);
-		System.out.println("X: " + xCoord);
-		System.out.println("Y: " + yCoord);
-		System.out.println("Block Dimension: " + blockWidth);
 		
-		
-		 //blockJLabel.setIcon(num);
+		if(blockValue != 0)
+		{
+			blockJLabel.setIcon(pic);
+	        blockJLabel.setBounds(xCoord,yCoord,pic.getIconWidth(),pic.getIconHeight());  
+	        blockJLabel.setVisible(true);
+		}
 		 
-		 
-		 //g.drawImage(num, xCoord, yCoord, blockWidth, blockHeight, null);
 	}
 }

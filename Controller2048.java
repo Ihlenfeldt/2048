@@ -106,7 +106,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		if(gameType == 0)
 		{
-			myGame = new OriginalGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
+			myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
 		}
 		else
 		{
@@ -117,7 +117,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		gameIsReady = true;
 		time = 0;
 		myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
-		
+		System.out.println("drawing in new game");
 	}
 	
 	
@@ -145,7 +145,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 					{
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
-						//myGame.draw(g,FRAME_WIDTH,FRAME_HEIGHT);
+						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+						System.out.println("drawing");
 					}
 				}
 			
