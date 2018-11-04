@@ -225,6 +225,10 @@ public class Block2048
 	        blockJLabel.setBounds(xCoord,yCoord,pic.getIconWidth(),pic.getIconHeight());  
 	        blockJLabel.setVisible(true);
 		}
+		else
+		{
+			blockJLabel.setVisible(false);
+		}
 		 
 	}
 }

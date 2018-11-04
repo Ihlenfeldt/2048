@@ -135,7 +135,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			else if (gameIsReady)
 			{
 				time++;
-				System.out.println(time);
+				
 				
 				if(gameType == 0 )
 				{
@@ -148,7 +148,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
 						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
-						System.out.println("drawing");
+						//System.out.println("drawing");
 					}
 				}
 			
