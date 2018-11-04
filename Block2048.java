@@ -176,6 +176,7 @@ public class Block2048
 	    {
 	    	pic = new ImageIcon (num);
 	    }
+		
 	}
 	
 	public int getX()
@@ -227,6 +228,10 @@ public class Block2048
 			blockJLabel.setIcon(pic);
 	        blockJLabel.setBounds(xCoord,yCoord,pic.getIconWidth(),pic.getIconHeight());  
 	        blockJLabel.setVisible(true);
+		}
+		else
+		{
+			blockJLabel.setVisible(false);
 		}
 		 
 	}
