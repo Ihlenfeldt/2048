@@ -13,23 +13,21 @@ public class OriginalGameBoard implements GameBoard
 	int height = 0;
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
-	public JFrame frame;
-	
 
-	public OriginalGameBoard(int passedLength, int passedHeight) 
+
+	public OriginalGameBoard(JFrame frame, int passedLength, int passedHeight) 
 	{
 		gameArray = new Block2048[passedHeight][passedLength];
 		length = passedLength;
 		height = passedHeight;
-		fillGameBoard();
+		fillGameBoard(frame);
 		capacity = length*height;
-		frame = Controller2048.gameFrame2048;
 		printArray();
 
 	}
 	
 
-	private void fillGameBoard() 
+	private void fillGameBoard(JFrame frame) 
 	{
 		for(int i = 0; i < height; i++)
 		{
