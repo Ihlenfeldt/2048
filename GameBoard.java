@@ -4,7 +4,10 @@ import java.awt.Graphics;
 
 public interface GameBoard {
 
-public void combine();
+public void combineRight();
+public void combineLeft();
+public void combineUp();
+public void combineDown();
 public boolean isGameOver();
 public void moveRight();
 public void moveLeft();
@@ -14,7 +17,7 @@ public Block2048 lookUp(int i, int j);
 public Block2048 lookRight(int i, int j);
 public Block2048 lookDown(int i, int j);
 public Block2048 lookLeft(int i, int j);
-public void populate(int width, int height);
+public void populate();
 public boolean isFull();
 public void draw(int height, int width);
 
