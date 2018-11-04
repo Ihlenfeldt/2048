@@ -34,8 +34,8 @@ public class OriginalGameBoard implements GameBoard
 			for(int j = 0; j < length; j++)
 			{
 				gameArray[j][i] = new Block2048(frame, 0);
-				gameArray[j][i].setX(j*67);
-				gameArray[j][i].setY(i*67);
+				gameArray[j][i].setX(i*67);
+				gameArray[j][i].setY(j*67);
 			}
 			
 		}
@@ -57,11 +57,11 @@ public class OriginalGameBoard implements GameBoard
 			{
 				if(whatNumber > 0.5) 
 				{
-					gameArray[firstRandom][secondRandom].setBlockValue(4);
+					gameArray[firstRandom][secondRandom].setBlockValue(2);
 				}
 				else
 				{
-					gameArray[firstRandom][secondRandom].setBlockValue(2);;
+					gameArray[firstRandom][secondRandom].setBlockValue(4);;
 				}
 				
 				stillPicking = false;
