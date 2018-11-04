@@ -75,12 +75,22 @@ public class OriginalGameBoard implements GameBoard
 	public boolean isFull()
 	{
 		boolean answer = true;
-		if(this.capacity == this.numberOfBlocks)
+		
+		for(int i = 0; i < length; i++) 
 		{
-			answer = false;
+			for(int j = 0; j < length; j++)
+			{
+				if(gameArray[i][j].getValue()== 0)
+				{
+					answer = false;
+					break;
+				}
+			}
 		}
+	
 		return answer;
 	}
+	
 	public void setCapacity(int newCapacity) {
 		this.capacity = newCapacity;
 	}
@@ -265,19 +275,19 @@ public class OriginalGameBoard implements GameBoard
 
 	@Override
 	public Block2048 lookRight(int i, int j) {
-		// TODO Auto-generated method stub
+
 		return gameArray[i][j+1];
 	}
 
 	@Override
 	public Block2048 lookDown(int i, int j) {
-		// TODO Auto-generated method stub
+		
 		return gameArray[i+1][j];
 	}
 
 	@Override
 	public Block2048 lookLeft(int i, int j) {
-		// TODO Auto-generated method stub
+		
 		return gameArray[i][j-1];
 	}
 
@@ -311,13 +321,13 @@ public class OriginalGameBoard implements GameBoard
 
 	@Override
 	public void combineLeft() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void combineUp() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 

@@ -126,16 +126,18 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		if(gameType == 0)
 		{
+			
 			if(finished)
 			{
 				gameIsReady = false;
-				//Prompt user to play again and then reset
+				
 			}
 			else if (gameIsReady)
 			{
 				time++;
+				System.out.println(time);
 				
-				if(gameType == 0 && time > 10000)
+				if(gameType == 0 )
 				{
 					if(myGame.isFull())
 					{
@@ -173,28 +175,27 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void mouseEntered(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) 
 	{
-		// TODO Auto-generated method stub
+		
 		
 	}
 
