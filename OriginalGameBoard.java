@@ -8,37 +8,39 @@ public class OriginalGameBoard implements GameBoard
 {
 	protected Block2048[][] gameArray;
 	int length = 0;
+	int height = 0;
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	
-	public OriginalGameBoard(int width, int height) 
+	public OriginalGameBoard(int passedLength, int passedHeight) 
 	{
-		gameArray = new Block2048[height][width];
-		length = gameArray.length;
-		fillGameBoard(width, height);
-		capacity = width*height;
+		gameArray = new Block2048[passedHeight][passedLength];
+		length = passedLength;
+		height = passedHeight;
+		fillGameBoard();
+		capacity = length*height;
 	
 		printArray();
 
 	}
 	
-	private void fillGameBoard(int width, int height) 
+	private void fillGameBoard() 
 	{
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j] = new Block2048(2);
+				gameArray[i][j] = new Block2048(0);
 				gameArray[i][j].setX(i*67);
 				gameArray[i][j].setY(i*67);
 			}
 			
 		}
-		//populate(width,height);
-		//populate(width,height);
+		populate();
+		populate();
 	}
 	
-	public void populate(int width, int height) 
+	public void populate() 
 	{
 		//this double will be used to determine if a 2 or a 4 is printed
 		double whatNumber = Math.random();
@@ -46,16 +48,16 @@ public class OriginalGameBoard implements GameBoard
 		Random randomInt = new Random();
 		while(stillPicking) {
 			int firstRandom = randomInt.nextInt(height);
-			int secondRandom = randomInt.nextInt(width);
+			int secondRandom = randomInt.nextInt(length);
 			if(gameArray[firstRandom][secondRandom].getValue() == 0) 
 			{
 				if(whatNumber > 0.5) 
 				{
-					gameArray[firstRandom][secondRandom] = new Block2048(4);
+					gameArray[firstRandom][secondRandom].setBlockValue(4);;
 				}
 				else
 				{
-					gameArray[firstRandom][secondRandom] = new Block2048(2);
+					gameArray[firstRandom][secondRandom].setBlockValue(2);;
 				}
 				
 				stillPicking = false;
@@ -88,13 +90,6 @@ public class OriginalGameBoard implements GameBoard
 		this.numberOfBlocks++;
 	}
 	
-	@Override
-	public void combine() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public boolean isGameOver() 
 	{
@@ -129,15 +124,15 @@ public class OriginalGameBoard implements GameBoard
 				{
 					if(gameArray[i][k].getValue() != 0) 
 					{
-						gameArray[i][holder] = gameArray[i][k];
+						gameArray[i][holder].setBlockValue(gameArray[i][k].getValue());
 						gameArray[i][k].setBlockValue(0);
 						holder --;
 					}
 				}
 			}
 		}
-		populate(length,height);
-		printArray();
+		
+		
 		
 	}
 
@@ -162,14 +157,14 @@ public class OriginalGameBoard implements GameBoard
 				{
 					if(gameArray[i][k].getValue() != 0) 
 					{
-						gameArray[i][holder] = gameArray[i][k];
+						gameArray[i][holder].setBlockValue(gameArray[i][k].getValue());
 						gameArray[i][k].setBlockValue(0);
 						holder ++;
 					}
 				}
 			}
 		}
-		populate(length,height);
+		populate();
 		printArray();
 		
 	}
@@ -194,14 +189,14 @@ public class OriginalGameBoard implements GameBoard
 				{
 					if(gameArray[k][i].getValue() != 0) 
 					{
-						gameArray[holder][i] = gameArray[k][i];
+						gameArray[holder][i].setBlockValue(gameArray[k][i].getValue());
 						gameArray[k][i].setBlockValue(0);
 						holder ++;
 					}
 				}
 			}
 		}
-		populate(length,height);
+		populate();
 		printArray();
 	
 	}
@@ -228,14 +223,14 @@ public class OriginalGameBoard implements GameBoard
 				{
 					if(gameArray[k][i].getValue() != 0) 
 					{
-						gameArray[holder][i] = gameArray[k][i];
+						gameArray[holder][i].setBlockValue(gameArray[k][i].getValue());
 						gameArray[k][i].setBlockValue(0);
 						holder --;
 					}
 				}
 			}
 		}
-		populate(length,height);
+		populate();
 		printArray();
 		
 	}
@@ -297,6 +292,40 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 
+		
+	}
+
+	@Override
+	public void combineRight() {
+		int length = gameArray.length;
+		for(int i = 0; i < length; i++) {
+			for(int j = length-1; j >0; j--) {
+				if(gameArray[i][j].getValue()==gameArray[i][j-1].getValue()) {
+					//sum the two block values and assign to the block on the right
+					gameArray[i][j].setBlockValue(gameArray[i][j].getValue()+gameArray[i][j-1].getValue());
+					gameArray[i][j-1].setBlockValue(0);
+				}
+			}
+		}
+		populate();
+		printArray();
+	}
+
+	@Override
+	public void combineLeft() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void combineUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void combineDown() {
+		// TODO Auto-generated method stub
 		
 	}
 

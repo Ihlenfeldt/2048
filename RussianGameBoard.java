@@ -8,11 +8,6 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 	@Override
-	public void combine() {
-		// TODO Auto-generated method stub	
-	}
-
-	@Override
 	public void moveRight() {
 		// TODO Auto-generated method stub
 		
@@ -51,27 +46,27 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 	@Override
-	public int lookUp(int i, int j) {
+	public Block2048 lookUp(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int lookRight(int i, int j) {
+	public Block2048 lookRight(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int lookDown(int i, int j) {
+	public Block2048 lookDown(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
-	public int lookLeft(int i, int j) {
+	public Block2048 lookLeft(int i, int j) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
@@ -87,9 +82,36 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(int height, int width) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void combineRight() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void combineLeft() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void combineUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void combineDown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }

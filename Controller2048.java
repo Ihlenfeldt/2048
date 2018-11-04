@@ -214,6 +214,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			
 			case RIGHT_ARROW:System.out.println("Right Arrow");
 			myGame.moveRight();
+			myGame.combineRight();
+			//myGame.moveRight();
 			break;
 			
 			case LEFT_ARROW:System.out.println("Left Arrow");
