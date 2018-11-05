@@ -46,6 +46,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	static GameBoard myGame; 
 	public static boolean finished;
 	public static Graphics g;
+	public boolean inMainMenu;
+	public MainMenu menu;
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
