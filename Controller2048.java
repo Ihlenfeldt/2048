@@ -11,16 +11,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.TimerTask;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
 public class Controller2048 extends TimerTask implements MouseListener, KeyListener{
 
-	public static final int FRAME_WIDTH = 600;
-	public static final int FRAME_HEIGHT = 600;
+
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-	public static final int ARRAY_WIDTH = 8;
+	public static final int ARRAY_WIDTH = 10;
 	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
+	public static final int FRAME_WIDTH = 68*ARRAY_WIDTH;
+	public static final int FRAME_HEIGHT = 71*ARRAY_HEIGHT;
 	
 	//Key_Codes for keyListener below
 	public static final int UP_ARROW = 38;
@@ -82,7 +85,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048.setBackground(Color.GRAY);
 		
 		
-		
+		gameFrame2048.getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		//Create content pane for main menu
 		
 		
@@ -206,46 +209,64 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		int keyPressed_Code = e.getKeyCode();
 		if(gameType == 0) {
 			switch(keyPressed_Code) {
-			case UP_ARROW: System.out.println("Up Arrow");
-			myGame.moveUp();
+			case UP_ARROW: 
+				myGame.moveUp();
+				myGame.combineUp();
 			break;
 			
-			case DOWN_ARROW: System.out.println("Down Arrow");
-			myGame.moveDown();
+			case DOWN_ARROW: 
+				myGame.moveDown();
+				myGame.combineDown();
 			break;
 			
-			case RIGHT_ARROW:System.out.println("Right Arrow");
-			myGame.moveRight();
-			myGame.combineRight();
-			//myGame.moveRight();
+			case RIGHT_ARROW:
+				myGame.moveRight();
+				myGame.combineRight();
 			break;
 			
-			case LEFT_ARROW:System.out.println("Left Arrow");
-			myGame.moveLeft();
+			case LEFT_ARROW:
+				myGame.moveLeft();
+				myGame.combineLeft();
 			break;
 			
 			case NUMPAD_6:
+				myGame.moveRight();
+				myGame.combineRight();
 			break;
 			
 			case NUMPAD_8:
+				myGame.moveUp();
+				myGame.combineUp();
 			break;
 			
 			case NUMPAD_4:
+				myGame.moveLeft();
+				myGame.combineLeft();
 			break;
 			
 			case NUMPAD_2:
+				myGame.moveDown();
+				myGame.combineDown();
 			break;
 			
 			case KEY_W:
+				myGame.moveUp();
+				myGame.combineUp();
 			break;
 			
 			case KEY_D:
+				myGame.moveRight();
+				myGame.combineRight();
 			break;
 			
 			case KEY_S:
+				myGame.moveDown();
+				myGame.combineDown();
 			break;
 			
 			case KEY_A:
+				myGame.moveLeft();
+				myGame.combineLeft();
 			break; 
 			
 			case KEY_SPACE:

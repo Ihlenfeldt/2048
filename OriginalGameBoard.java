@@ -33,11 +33,9 @@ public class OriginalGameBoard implements GameBoard
 		{
 			for(int j = 0; j < length; j++)
 			{
-
 				gameArray[i][j] = new Block2048(frame, 0);
 				gameArray[i][j].setX(j*67);
 				gameArray[i][j].setY(i*67);
-
 			}
 			
 		}
@@ -262,9 +260,9 @@ public class OriginalGameBoard implements GameBoard
 		{
 			for(int j = 0; j < length; j++)
 			{
-				System.out.print(gameArray[i][j].getValue() + " ");
+				//System.out.print(gameArray[i][j].getValue() + " ");
 			}
-			System.out.println("");
+			//System.out.println("");
 		}
 	}
 
@@ -316,27 +314,61 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
+		moveRight();
 		populate();
 		printArray();
 	}
 
 	@Override
 	public void combineLeft() {
-		
-		
+		int length = gameArray.length;
+		System.out.println("I'm in CombineLeft()");
+		for(int i = 0; i < length; i++) {
+			for(int j = 0; j <length-1; j++) {
+				if(gameArray[i][j].getValue()==gameArray[i][j+1].getValue()) {
+					//sum the two block values and assign to the block on the right
+					gameArray[i][j].setBlockValue(gameArray[i][j].getValue()+gameArray[i][j+1].getValue());
+					gameArray[i][j+1].setBlockValue(0);
+				}
+			}
+		}
+		moveLeft();
+		populate();
+		printArray();
 	}
 
 	@Override
 	public void combineUp() {
-	
-		
+		int length = gameArray.length;
+		for(int i = 0; i < length; i++) {
+			for(int j = 0; j < length-1; j++) {
+				if(gameArray[j][i].getValue()==gameArray[j+1][i].getValue()) {
+					//sum the two block values and assign to the block on the right
+					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j+1][i].getValue());
+					gameArray[j+1][i].setBlockValue(0);
+				}
+			}
+		}
+		moveUp();
+		populate();
+		printArray();
 	}
 
 	@Override
 	public void combineDown() {
-	
-	
-	
+		int length = gameArray.length;
+		for(int i = 0; i < length; i++) {
+			for(int j = length -1; j > 0; j--) {
+				if(gameArray[j][i].getValue()==gameArray[j-1][i].getValue()) {
+					//sum the two block values and assign to the block on the right
+					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j-1][i].getValue());
+					gameArray[j-1][i].setBlockValue(0);
+				}
+			}
+		}
+		moveDown();
+		populate();
+		printArray();
 	}
 
 	
