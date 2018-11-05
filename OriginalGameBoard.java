@@ -13,7 +13,7 @@ public class OriginalGameBoard implements GameBoard
 	int height = 0;
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
-
+	public int gameScore = 0;
 
 	public OriginalGameBoard(JFrame frame, int passedLength, int passedHeight)
 	{
@@ -177,8 +177,7 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-		populate();
-		printArray();
+		
 		
 	}
 
@@ -209,9 +208,7 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-		populate();
-		printArray();
-	
+			
 	}
 
 	@Override
@@ -243,8 +240,7 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-		populate();
-		printArray();
+		
 		
 	}
 	
@@ -310,6 +306,7 @@ public class OriginalGameBoard implements GameBoard
 				if(gameArray[i][j].getValue()==gameArray[i][j-1].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[i][j].setBlockValue(gameArray[i][j].getValue()+gameArray[i][j-1].getValue());
+					addToScore(gameScore,gameArray[i][j].getValue());
 					gameArray[i][j-1].setBlockValue(0);
 				}
 			}
@@ -317,17 +314,18 @@ public class OriginalGameBoard implements GameBoard
 		moveRight();
 		populate();
 		printArray();
+		System.out.println("Score is: " + gameScore);
 	}
 
 	@Override
 	public void combineLeft() {
 		int length = gameArray.length;
-		System.out.println("I'm in CombineLeft()");
 		for(int i = 0; i < length; i++) {
 			for(int j = 0; j <length-1; j++) {
 				if(gameArray[i][j].getValue()==gameArray[i][j+1].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[i][j].setBlockValue(gameArray[i][j].getValue()+gameArray[i][j+1].getValue());
+					addToScore(gameScore,gameArray[i][j].getValue());
 					gameArray[i][j+1].setBlockValue(0);
 				}
 			}
@@ -335,6 +333,7 @@ public class OriginalGameBoard implements GameBoard
 		moveLeft();
 		populate();
 		printArray();
+		System.out.println("Score is: " + gameScore);
 	}
 
 	@Override
@@ -345,6 +344,7 @@ public class OriginalGameBoard implements GameBoard
 				if(gameArray[j][i].getValue()==gameArray[j+1][i].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j+1][i].getValue());
+					addToScore(gameScore,gameArray[i][j].getValue());
 					gameArray[j+1][i].setBlockValue(0);
 				}
 			}
@@ -352,6 +352,7 @@ public class OriginalGameBoard implements GameBoard
 		moveUp();
 		populate();
 		printArray();
+		System.out.println("Score is: " + gameScore);
 	}
 
 	@Override
@@ -362,6 +363,7 @@ public class OriginalGameBoard implements GameBoard
 				if(gameArray[j][i].getValue()==gameArray[j-1][i].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j-1][i].getValue());
+					addToScore(gameScore,gameArray[i][j].getValue());
 					gameArray[j-1][i].setBlockValue(0);
 				}
 			}
@@ -369,7 +371,16 @@ public class OriginalGameBoard implements GameBoard
 		moveDown();
 		populate();
 		printArray();
+		System.out.println("Score is: " + gameScore);
 	}
-
+	// This function takes in the current score and the value to add to the score as integers and adds them togehter.  
+	public void addToScore(int currentScore, int addToScore) 
+	{
+		gameScore = currentScore + addToScore; 
+	}
 	
+	public int getScore()
+	{
+		return gameScore;
+	}
 }
