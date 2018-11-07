@@ -51,6 +51,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static Graphics g;
 	public boolean inMainMenu;
 	public MainMenu menu;
+	public static JFrame menuFrame;
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
@@ -85,13 +86,16 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
+		menu = new MainMenu();
+		menuFrame = menu.getFrame();
 		
 		
 		gameFrame2048.getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		//Create content pane for main menu
 		
 		
-		gameFrame2048.setVisible(true);
+		gameFrame2048.setVisible(false);
+		menuFrame.setVisible(true);
 		
 		
 		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
