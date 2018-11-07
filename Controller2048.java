@@ -20,10 +20,10 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-	public static final int ARRAY_WIDTH = 10;
+	public static final int ARRAY_WIDTH = 4;
 	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
-	public static final int FRAME_WIDTH = 68*ARRAY_WIDTH;
-	public static final int FRAME_HEIGHT = 71*ARRAY_HEIGHT;
+	public static final int FRAME_WIDTH = 66*ARRAY_WIDTH;
+	public static final int FRAME_HEIGHT = 66*ARRAY_HEIGHT;
 	
 	//Key_Codes for keyListener below
 	public static final int UP_ARROW = 38;
@@ -55,6 +55,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
+	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
 	
 	
@@ -81,10 +82,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		gameFrame2048.setLocation(dim.width/2-windowWidth/2, dim.height/2-windowHeight/2);
 		gameFrame2048.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame2048.setResizable(false);
+		
 		//Create content pane to which the game is played
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
+		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
 		
 		
 		gameFrame2048.getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
