@@ -376,7 +376,7 @@ public class OriginalGameBoard implements GameBoard
 	// This function takes in the current score and the value to add to the score as integers and adds them togehter.  
 	public void addToScore(int currentScore, int addToScore) 
 	{
-		gameScore = currentScore + addToScore; 
+		gameScore = gameScore + addToScore; 
 	}
 	
 	public int getScore()

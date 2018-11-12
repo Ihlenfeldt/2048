@@ -20,7 +20,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-	public static final int ARRAY_WIDTH = 4;
+	public static final int ARRAY_WIDTH = 7;
 	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
 	public static final int FRAME_WIDTH = 66*ARRAY_WIDTH;
 	public static final int FRAME_HEIGHT = 66*ARRAY_HEIGHT;
@@ -85,11 +85,19 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
+		if(gameType ==0) 
+		{
+			contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
+		}
+		else
+		{
+			contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT+132);
+			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
+		}
+		
 		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
 		
-		
-		gameFrame2048.getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		//Create content pane for main menu
 		
 		
@@ -117,13 +125,15 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
-			myGame = new RussianGameBoard(ARRAY_WIDTH, ARRAY_HEIGHT);
+			myGame = new RussianGameBoard(gameFrame2048,ARRAY_WIDTH, ARRAY_HEIGHT+400);
+		
 		}
 		
 		finished = false;
 		gameIsReady = true;
-		time = 0;
 		myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+		time = 0;
+		
 		System.out.println("drawing in new game");
 	}
 	
@@ -162,12 +172,12 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			}
 			else //Game is not finished, but also not ready, so regenerate
 			{
-				//newGame();
+				
 			}
 		}
 		else //Game Type is 1 (Russian)
 		{
-			
+			//newGame();
 		}
 		
 	}
@@ -344,7 +354,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	}
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
+		
 		Controller2048 myController = new Controller2048("Hello", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
 		
 		
