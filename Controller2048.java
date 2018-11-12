@@ -157,10 +157,9 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void run() 
 	{
-		System.out.println("I'm in Run");
 		if(gameType == 0)
 		{
-			System.out.println("I'm waiting for Original Command");
+
 			if(finished)
 			{
 				gameIsReady = false;
@@ -194,8 +193,40 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else //Game Type is 1 (Russian)
 		{
-			System.out.println("I'm waiting for Russian Command");
-			myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+			System.out.println("In Russian");
+			if(finished)
+			{
+				gameIsReady = false;
+				
+			}
+			else if (gameIsReady)
+			{
+				time++;
+				
+				
+				if(gameType == 1)
+				{
+					if(myGame.isFull())
+					{
+						finished = true;
+					}
+					else
+					{
+						myGame.fall();
+						time = 0;
+						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
+						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+						//System.out.println("drawing");
+						System.out.println("drawing in Russian");
+					}
+				}
+			
+			}
+			else //Game is not finished, but also not ready, so regenerate
+			{
+
+			}
+			
 		}
 		
 	}

@@ -57,7 +57,18 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	public void fall() {
-	
+	 System.out.println("I'm falling");
+	 for(int i = height; i > 0; i--)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				if(gameArray[i][j].getLockedIn() == false)
+				{
+					
+				}
+				
+			}
+		}
 	}
 
 	@Override

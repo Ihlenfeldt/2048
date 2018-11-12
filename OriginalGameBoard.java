@@ -383,4 +383,11 @@ public class OriginalGameBoard implements GameBoard
 	{
 		return gameScore;
 	}
+
+
+	@Override
+	public void fall() {
+		// TODO Auto-generated method stub
+		
+	}
 }

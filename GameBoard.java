@@ -13,6 +13,7 @@ public void moveRight();
 public void moveLeft();
 public void moveUp();
 public void moveDown();
+public void fall();
 public Block2048 lookUp(int i, int j);
 public Block2048 lookRight(int i, int j);
 public Block2048 lookDown(int i, int j);
