@@ -29,10 +29,10 @@ public class Block2048
     
     
 
-	public Block2048(JFrame frame, int passedValue)
+	public Block2048(JFrame frame, int passedValue, boolean locked)
 	{
 		this.blockValue = passedValue;
-		lockedIn = true;
+		lockedIn = locked;
 		//Setting an image to the block depending on its value
 		
 		blockJFrame = frame;

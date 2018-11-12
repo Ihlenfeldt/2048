@@ -29,7 +29,7 @@ public class RussianGameBoard implements GameBoard {
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j] = new Block2048(frame, 0);
+				gameArray[i][j] = new Block2048(frame, 0, true);
 				gameArray[i][j].setX(j*67);
 				gameArray[i][j].setY(i*67);
 			}
@@ -38,6 +38,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 	@Override
 	public void moveRight() {
+		boolean moving = true;
 		
 	}
 
@@ -56,7 +57,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	public void fall() {
-		
+	
 	}
 
 	@Override
@@ -95,8 +96,9 @@ public class RussianGameBoard implements GameBoard {
 		return null;
 	}
 
-	@Override
+	//Populate generates the block that will fall from the top center. A random number between 0 and 1 is generated and depending on that number, a block with a certain value is populated.
 	public void populate() {
+		
 		double whatNumber = Math.random();
 		if(whatNumber < 0.167) 
 		{
@@ -122,6 +124,8 @@ public class RussianGameBoard implements GameBoard {
 		{
 			gameArray[0][centerColumn].setBlockValue(64);
 		}
+		
+		gameArray[0][centerColumn].setLockedIn(false);
 	}
 
 	@Override
@@ -131,8 +135,15 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 	@Override
-	public void draw(int height, int width) {
-		
+	public void draw( int width, int height) 
+	{
+		for(int i = 0; i < length; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				gameArray[i][j].drawBlock(height/4, width/4);
+			}
+		}
 	}
 
 	@Override
@@ -161,7 +172,6 @@ public class RussianGameBoard implements GameBoard {
 	
 	public void printArray() 
 	{
-		
 		for(int i = 0; i < length; i++)
 		{
 			for(int j = 0; j < length; j++)

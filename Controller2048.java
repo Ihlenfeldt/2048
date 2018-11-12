@@ -22,8 +22,10 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
 	public static final int ARRAY_WIDTH = 7;
 	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
+	public static final int RUSSIAN_ARRAY_HEIGHT = ARRAY_WIDTH +2;
 	public static final int FRAME_WIDTH = 66*ARRAY_WIDTH;
 	public static final int FRAME_HEIGHT = 66*ARRAY_HEIGHT;
+	public static final int RUSSIAN_FRAME_HEIGHT = FRAME_HEIGHT+132;
 	
 	//Key_Codes for keyListener below
 	public static final int UP_ARROW = 38;
@@ -61,7 +63,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	
 	//Keeps track of game type Original = 0, Russian = 1
-	private static int gameType = 0;
+	private static int gameType = 1;
 	
 	public static JFrame gameFrame2048;
 	private Container contentPane2048;
@@ -96,7 +98,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
-			contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT+132);
+			contentPane2048.setSize(FRAME_WIDTH, RUSSIAN_FRAME_HEIGHT);
 			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
 		}
 
@@ -139,7 +141,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
-			myGame = new RussianGameBoard(gameFrame2048,ARRAY_WIDTH, ARRAY_HEIGHT+400);
+			myGame = new RussianGameBoard(gameFrame2048,ARRAY_WIDTH, RUSSIAN_ARRAY_HEIGHT);
 		
 		}
 		
@@ -155,9 +157,10 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void run() 
 	{
+		System.out.println("I'm in Run");
 		if(gameType == 0)
 		{
-			
+			System.out.println("I'm waiting for Original Command");
 			if(finished)
 			{
 				gameIsReady = false;
@@ -186,12 +189,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			}
 			else //Game is not finished, but also not ready, so regenerate
 			{
-				
+
 			}
 		}
 		else //Game Type is 1 (Russian)
 		{
-			//newGame();
+			System.out.println("I'm waiting for Russian Command");
+			myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
 		}
 		
 	}
@@ -235,7 +239,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		// TODO Auto-generated method stub
 		int keyPressed_Code = e.getKeyCode();
-		if(gameType == 0) {
+		if(gameType == 1) {
 			switch(keyPressed_Code) {
 			case UP_ARROW: 
 				myGame.moveUp();
@@ -249,7 +253,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			
 			case RIGHT_ARROW:
 				myGame.moveRight();
-				myGame.combineRight();
+				System.out.println("Right");
+				//myGame.combineRight();
 			break;
 			
 			case LEFT_ARROW:
@@ -369,7 +374,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static void main(String[] args) 
 	{
 		
-		Controller2048 myController = new Controller2048("Hello", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
+		Controller2048 myController = new Controller2048("2048", 50,50, FRAME_WIDTH, FRAME_HEIGHT);
 		
 		
 	}

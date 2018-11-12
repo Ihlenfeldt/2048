@@ -33,7 +33,7 @@ public class OriginalGameBoard implements GameBoard
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j] = new Block2048(frame, 0);
+				gameArray[i][j] = new Block2048(frame, 0,true);
 				gameArray[i][j].setX(j*67);
 				gameArray[i][j].setY(i*67);
 			}
