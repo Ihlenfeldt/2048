@@ -129,6 +129,8 @@ public class Block2048
 	    {
 	    case 0:
 	    	num = null;
+	    	//if a block is 0 it will not fall.
+	    	setLockedIn(true);
 	    	break;
 	    case 2:
 	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);

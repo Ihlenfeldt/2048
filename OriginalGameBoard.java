@@ -390,4 +390,18 @@ public class OriginalGameBoard implements GameBoard
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public boolean getNeedToPopulate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setNeedToPopulate(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

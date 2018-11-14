@@ -11,6 +11,7 @@ public class RussianGameBoard implements GameBoard {
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	public int gameScore = 0;
+	public boolean needToPopulate = false;
 	
 	public RussianGameBoard(JFrame frame,int passedLength, int passedHeight) {
 		gameArray = new Block2048[passedHeight][passedLength];
@@ -18,8 +19,7 @@ public class RussianGameBoard implements GameBoard {
 		height = passedHeight;
 		centerColumn = (passedLength/2);
 		fillGameBoard(frame);
-		//System.out.println(centerColumn);
-		printArray();
+
 		
 	}
 
@@ -38,13 +38,47 @@ public class RussianGameBoard implements GameBoard {
 	}
 	@Override
 	public void moveRight() {
-		boolean moving = true;
+		for(int i = height-1; i >= 0; i--)
+		{
+			for(int j = length-1; j >=0; j--)
+			{
+				//Looks for the moving block
+				if(gameArray[i][j].getLockedIn() == false)
+				{
+					//prevents out of bounds exception if block is already on the left edge of the gameboard
+					if(j != length-1)
+					{
+						gameArray[i][j+1].setBlockValue(gameArray[i][j].getValue());
+						gameArray[i][j+1].setLockedIn(false);
+						gameArray[i][j].setBlockValue(0);
+					}
+				}
+				
+			}
+		}
 		
 	}
 
 	@Override
 	public void moveLeft() {
-		
+		for(int i = height-1; i >= 0; i--)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				//Looks for the moving block
+				if(gameArray[i][j].getLockedIn() == false)
+				{
+					//prevents out of bounds exception if block is already on the left edge of the gameboard
+					if(j != 0)
+					{
+						gameArray[i][j-1].setBlockValue(gameArray[i][j].getValue());
+						gameArray[i][j-1].setLockedIn(false);
+						gameArray[i][j].setBlockValue(0);
+					}
+				}
+				
+			}
+		}
 	}
 
 	@Override
@@ -57,14 +91,31 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	public void fall() {
-	 System.out.println("I'm falling");
-	 for(int i = height; i > 0; i--)
+		
+	 for(int i = height-1; i >= 0; i--)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				if(gameArray[i][j].getLockedIn() == false)
+				
+				if(gameArray[i][j].getLockedIn() == false && i != height-1)
 				{
-					
+					if(lookDown(i,j).getValue()==0)
+					{
+						gameArray[i+1][j].setBlockValue(gameArray[i][j].getValue());
+						gameArray[i+1][j].setLockedIn(false);
+						gameArray[i][j].setBlockValue(0);
+					}
+					else
+					{
+						gameArray[i][j].setLockedIn(true);
+						needToPopulate = true;
+					}
+				
+				}
+				if(gameArray[i][j].getLockedIn() == false && i == height-1)
+				{
+					gameArray[i][j].setLockedIn(true);
+					needToPopulate = true;
 				}
 				
 			}
@@ -73,38 +124,40 @@ public class RussianGameBoard implements GameBoard {
 
 	@Override
 	public void moveDown() {
-	
 		
 	}
 
 	@Override
 	public boolean isGameOver() {
-		
-		return false;
+		boolean gameOver = false;
+		if(isFull()==true)
+		{
+			gameOver = true;
+		}
+		return gameOver;
 	}
 
-	@Override
-	public Block2048 lookUp(int i, int j) {
+public Block2048 lookUp(int i, int j) {
 		
-		return null;
+		return gameArray[i-1][j];
 	}
 
 	@Override
 	public Block2048 lookRight(int i, int j) {
-		
-		return null;
+
+		return gameArray[i][j+1];
 	}
 
 	@Override
 	public Block2048 lookDown(int i, int j) {
 		
-		return null;
+		return gameArray[i+1][j];
 	}
 
 	@Override
 	public Block2048 lookLeft(int i, int j) {
 		
-		return null;
+		return gameArray[i][j-1];
 	}
 
 	//Populate generates the block that will fall from the top center. A random number between 0 and 1 is generated and depending on that number, a block with a certain value is populated.
@@ -137,12 +190,28 @@ public class RussianGameBoard implements GameBoard {
 		}
 		
 		gameArray[0][centerColumn].setLockedIn(false);
+		gameArray[height-1][centerColumn].setBlockValue(32);
 	}
 
 	@Override
 	public boolean isFull() {
 		
-		return false;
+		boolean full = false;
+		if(gameArray[0][centerColumn].getValue()!=0 && gameArray[0][centerColumn].getLockedIn()==true)
+		{
+			full = true;
+		}
+		return full;
+	}
+	
+	public boolean getNeedToPopulate()
+	{
+		return needToPopulate;
+	}
+	
+	public void setNeedToPopulate(boolean setValue)
+	{
+		needToPopulate = setValue;
 	}
 
 	@Override

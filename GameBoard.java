@@ -21,6 +21,8 @@ public Block2048 lookLeft(int i, int j);
 public void populate();
 public boolean isFull();
 public void draw(int height, int width);
+public boolean getNeedToPopulate();
+public void setNeedToPopulate(boolean b);
 
 
 
