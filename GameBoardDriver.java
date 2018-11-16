@@ -7,7 +7,7 @@ public class GameBoardDriver
 	{
 		
 		System.out.println("Beginning function checks for gameboards, beginning with original gameboard");
-		GameBoard board = new OriginalGameBoard(4,4);
+		
 		
 
 	}

@@ -20,12 +20,14 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
+
 	public static final int ARRAY_WIDTH = 7;
 	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
 	public static final int RUSSIAN_ARRAY_HEIGHT = ARRAY_WIDTH +2;
-	public static final int FRAME_WIDTH = 66*ARRAY_WIDTH;
-	public static final int FRAME_HEIGHT = 66*ARRAY_HEIGHT;
+	public static final int FRAME_WIDTH = 68*ARRAY_WIDTH;
+	public static final int FRAME_HEIGHT = 68*ARRAY_HEIGHT;
 	public static final int RUSSIAN_FRAME_HEIGHT = FRAME_HEIGHT+132;
+
 	
 	//Key_Codes for keyListener below
 	public static final int UP_ARROW = 38;
@@ -63,7 +65,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	
 	//Keeps track of game type Original = 0, Russian = 1
-	private static int gameType = 1;
+
+	public static int gameType = 1;
 	
 	public static JFrame gameFrame2048;
 	private Container contentPane2048;
@@ -107,7 +110,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		menuFrame = menu.getFrame();
 
 		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
+		gameFrame2048.setSize(contentPane2048.getWidth(), contentPane2048.getHeight()+24);
 
 
 		
@@ -126,15 +129,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048.addKeyListener(this);
 		contentPane2048.setFocusable(true);
 		
-		
-		
-		// Create new game
-		newGame();
 	}
 	
 	
 	public static void newGame() 
 	{
+		menuFrame.setVisible(false);
+		
 		if(gameType == 0)
 		{
 			myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
@@ -147,6 +148,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		
 		finished = false;
 		gameIsReady = true;
+		time = 0;
+		gameFrame2048.setVisible(true);
 		myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
 		time = 0;
 		
