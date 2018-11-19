@@ -76,6 +76,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static int score = 0;
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
+		
 		gameFrame2048 = new JFrame(JFrameTitle);
 		gameFrame2048.setSize(windowWidth, windowHeight);
 		
@@ -101,6 +102,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
+			
 			contentPane2048.setSize(FRAME_WIDTH, RUSSIAN_FRAME_HEIGHT);
 			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
 		}
@@ -109,6 +111,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		menu = new MainMenu();
 		menuFrame = menu.getFrame();
 
+		
 		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		gameFrame2048.setSize(contentPane2048.getWidth(), contentPane2048.getHeight()+24);
 
@@ -119,8 +122,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		//Create content pane for main menu
 		
 		
-		gameFrame2048.setVisible(true);
-		menuFrame.setVisible(false);
+		gameFrame2048.setVisible(false);
+		menuFrame.setVisible(true);
 		
 		
 		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
@@ -134,16 +137,17 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	public static void newGame() 
 	{
+		
 		menuFrame.setVisible(false);
 		
 		if(gameType == 0)
 		{
+			
 			myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
 		}
 		else
 		{
 			myGame = new RussianGameBoard(gameFrame2048,ARRAY_WIDTH, ARRAY_HEIGHT);
-		
 		}
 		
 		finished = false;
@@ -162,7 +166,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		if(gameType == 0)
 		{
-
+			
 			if(finished)
 			{
 				gameIsReady = false;
@@ -184,7 +188,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
 						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
-						//System.out.println("drawing");
 					}
 				}
 			
@@ -196,6 +199,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else //Game Type is 1 (Russian)
 		{
+			
 			if(finished)
 			{
 				gameIsReady = false;
@@ -228,7 +232,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
 						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
-						//System.out.println("drawing");
 					}
 				}
 			
@@ -281,7 +284,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		// TODO Auto-generated method stub
 		int keyPressed_Code = e.getKeyCode();
-		if(gameType == 1) {
+		if(gameType == 0)
+		{
 			switch(keyPressed_Code) {
 			case UP_ARROW: 
 				myGame.moveUp();
@@ -295,8 +299,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			
 			case RIGHT_ARROW:
 				myGame.moveRight();
-				System.out.println("Right");
-				//myGame.combineRight();
+				myGame.combineRight();
 			break;
 			
 			case LEFT_ARROW:
@@ -353,51 +356,63 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
-			switch(keyPressed_Code) 
-			{
-				case UP_ARROW: System.out.println("Up Arrow");
-				break;
-				
-				case DOWN_ARROW: System.out.println("Down Arrow");
-				break;
-				
-				case RIGHT_ARROW:
-				break;
-				
-				case LEFT_ARROW:
-				break;
-				
-				case NUMPAD_6:
-				break;
-				
-				case NUMPAD_8:
-				break;
-				
-				case NUMPAD_4:
-				break;
-				
-				case NUMPAD_2:
-				break;
-				
-				case KEY_W:
-				break;
-				
-				case KEY_D:
-				break;
-				
-				case KEY_S:
-				break;
-				
-				case KEY_A:
-				break; 
-				
-				case KEY_SPACE:
-				break;
-				
-				case KEY_ESC:
-				break;
+			switch(keyPressed_Code) {
+			case UP_ARROW: 
+				myGame.moveUp();
+			break;
+			
+			case DOWN_ARROW: 
+				myGame.moveDown();
+			break;
+			
+			case RIGHT_ARROW:
+				myGame.moveRight();
+			break;
+			
+			case LEFT_ARROW:
+				myGame.moveLeft();
+			break;
+			
+			case NUMPAD_6:
+				myGame.moveRight();
+			break;
+			
+			case NUMPAD_8:
+				myGame.moveUp();
+			break;
+			
+			case NUMPAD_4:
+				myGame.moveLeft();
+			break;
+			
+			case NUMPAD_2:
+				myGame.moveDown();
+			break;
+			
+			case KEY_W:
+				myGame.moveUp();
+			break;
+			
+			case KEY_D:
+				myGame.moveRight();
+			break;
+			
+			case KEY_S:
+				myGame.moveDown();
+			break;
+			
+			case KEY_A:
+				myGame.moveLeft();
+			break; 
+			
+			case KEY_SPACE:
+			break;
+			
+			case KEY_ESC:
+			break;
 			}
 		}
+			
 	}
 
 	@Override

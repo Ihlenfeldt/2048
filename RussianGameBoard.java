@@ -11,6 +11,7 @@ public class RussianGameBoard implements GameBoard {
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	public int gameScore = 0;
+	public int combineTotal = 0;
 	public boolean needToPopulate = false;
 	
 	public RussianGameBoard(JFrame frame,int passedLength, int passedHeight) {
@@ -25,6 +26,7 @@ public class RussianGameBoard implements GameBoard {
 
 	private void fillGameBoard(JFrame frame)
 	{
+		
 		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < length; j++)
@@ -108,6 +110,7 @@ public class RussianGameBoard implements GameBoard {
 					else
 					{
 						gameArray[i][j].setLockedIn(true);
+						combineAround(i,j);
 						needToPopulate = true;
 					}
 				
@@ -115,6 +118,7 @@ public class RussianGameBoard implements GameBoard {
 				if(gameArray[i][j].getLockedIn() == false && i == height-1)
 				{
 					gameArray[i][j].setLockedIn(true);
+					combineAround(i,j);
 					needToPopulate = true;
 				}
 				
@@ -225,29 +229,195 @@ public Block2048 lookUp(int i, int j) {
 			}
 		}
 	}
+	
+	public void combineAround(int i, int j)
+	{
+		combineTotal = gameArray[i][j].getValue();
+		
+		if(i==0) 
+		{
+			if(j==0) 
+			{
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					combineTotal += lookRight(i,j).getValue();
+					gameArray[i][j+1].setBlockValue(0);
+				}
+				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookDown(i,j).getValue();
+					gameArray[i+1][j].setBlockValue(0);
+				}
 
+			}
+			else if(j== length-1)
+			{
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookLeft(i,j).getValue();
+					gameArray[i][j-1].setBlockValue(0);
+				}
+				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookDown(i,j).getValue();
+					gameArray[i+1][j].setBlockValue(0);
+				}
+			}
+			else
+			{
+				
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					combineTotal += lookRight(i,j).getValue();
+					gameArray[i][j+1].setBlockValue(0);
+				}
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookLeft(i,j).getValue();
+					gameArray[i][j-1].setBlockValue(0);
+				}
+				
+				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookDown(i,j).getValue();
+					gameArray[i+1][j].setBlockValue(0);
+				}
+			}
+		}
+		else if(i == height-1)
+		{
+			if(j == 0)
+			{
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					combineTotal += lookRight(i,j).getValue();
+					gameArray[i][j+1].setBlockValue(0);
+				}
+
+				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookUp(i,j).getValue();
+					gameArray[i-1][j].setBlockValue(0);
+				}
+			}
+			else if(j == length -1)
+			{
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookLeft(i,j).getValue();
+					gameArray[i][j-1].setBlockValue(0);
+				}
+				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookUp(i,j).getValue();
+					gameArray[i-1][j].setBlockValue(0);
+				}
+			}
+			else
+			{
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					combineTotal += lookRight(i,j).getValue();
+					gameArray[i][j+1].setBlockValue(0);
+				}
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookLeft(i,j).getValue();
+					gameArray[i][j-1].setBlockValue(0);
+				}
+				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal += lookUp(i,j).getValue();
+					gameArray[i-1][j].setBlockValue(0);
+				}
+			}
+		}
+		else if(j == 0)
+		{
+			if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+			{
+				combineTotal += lookRight(i,j).getValue();
+				gameArray[i][j+1].setBlockValue(0);
+			}
+			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookUp(i,j).getValue();
+				gameArray[i-1][j].setBlockValue(0);
+			}
+			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookDown(i,j).getValue();
+				gameArray[i+1][j].setBlockValue(0);
+			}
+		}
+		else if(j== length -1)
+		{
+			if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookLeft(i,j).getValue();
+				gameArray[i][j-1].setBlockValue(0);
+			}
+			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookUp(i,j).getValue();
+				gameArray[i-1][j].setBlockValue(0);
+			}
+			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookDown(i,j).getValue();
+				gameArray[i+1][j].setBlockValue(0);
+			}
+		}
+		else
+		{
+			if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+			{
+				combineTotal += lookRight(i,j).getValue();
+				gameArray[i][j+1].setBlockValue(0);
+			}
+			if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookLeft(i,j).getValue();
+				gameArray[i][j-1].setBlockValue(0);
+			}
+			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookUp(i,j).getValue();
+				gameArray[i-1][j].setBlockValue(0);
+			}
+			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+			{
+				combineTotal += lookDown(i,j).getValue();
+				gameArray[i+1][j].setBlockValue(0);
+			}
+		}
+		
+		System.out.println(combineTotal);
+		gameArray[i][j].setBlockValue(combineTotal);
+		combineTotal = 0;
+	}
 	@Override
 	public void combineRight() {
-		// TODO Auto-generated method stub
+		System.out.println("Combine Right");
 		
 	}
 
 	@Override
 	public void combineLeft() {
-		
+		System.out.println("Combine Left");
 		
 	}
-
+	
 	@Override
 	public void combineUp() {
 		
-		
+		System.out.println("Combine Up");
 	}
 
 	@Override
 	public void combineDown() {
 		
-		
+		System.out.println("Combine Down");
 	}
 	
 	public void printArray() 

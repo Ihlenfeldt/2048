@@ -145,8 +145,7 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 		
-		
-		
+
 	}
 
 	@Override
@@ -344,7 +343,7 @@ public class OriginalGameBoard implements GameBoard
 				if(gameArray[j][i].getValue()==gameArray[j+1][i].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j+1][i].getValue());
-					addToScore(gameScore,gameArray[i][j].getValue());
+					addToScore(gameScore,gameArray[j][i].getValue());
 					gameArray[j+1][i].setBlockValue(0);
 				}
 			}
@@ -363,7 +362,7 @@ public class OriginalGameBoard implements GameBoard
 				if(gameArray[j][i].getValue()==gameArray[j-1][i].getValue()) {
 					//sum the two block values and assign to the block on the right
 					gameArray[j][i].setBlockValue(gameArray[j][i].getValue()+gameArray[j-1][i].getValue());
-					addToScore(gameScore,gameArray[i][j].getValue());
+					addToScore(gameScore,gameArray[j][i].getValue());
 					gameArray[j-1][i].setBlockValue(0);
 				}
 			}
