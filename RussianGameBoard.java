@@ -219,13 +219,15 @@ public Block2048 lookUp(int i, int j) {
 	}
 
 	@Override
-	public void draw( int width, int height) 
+	public void draw() 
 	{
-		for(int i = 0; i < length; i++)
+		System.out.println("Height: " + height);
+		System.out.println("Length: " + length);
+		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j].drawBlock(height/4, width/4);
+				gameArray[i][j].drawBlock();
 			}
 		}
 	}

@@ -49,7 +49,7 @@ public class MainMenu
         welcomeLabel.setSize(615,100);
         welcomeLabel.setOpaque(true);
         welcomeLabel.setBackground(Color.white);
-        javax.swing.border.Border border = BorderFactory.createLineBorder(Color.RED, 5);
+        javax.swing.border.Border border = BorderFactory.createLineBorder(Color.BLUE, 5);
         welcomeLabel.setBorder(border);
         
         welcomeLabel.setLocation(91, 175); // arbitrary, will change later
@@ -63,78 +63,136 @@ public class MainMenu
 				System.out.println("hello");
 			}
 		});
-		JButton Original = new JButton();
-		Original.setFont(welcomeLabel.getFont().deriveFont(32.0f));
-		border = BorderFactory.createLineBorder(Color.black, 10);
-		Original.setBorder(border);
-		Original.setText("Play Original 2048");
-		Original.setOpaque(false);
-		Original.setForeground(Color.black);
+		JLabel Original = new JLabel();
+		Original.setFont(welcomeLabel.getFont().deriveFont(26.0f));
+		border = BorderFactory.createLineBorder(Color.black, 5);
 		
-		Original.setSize(310,75);
+		Original.setBorder(border);
+		Original.setText(" Play Original Style ->");
+		Original.setOpaque(false);
+		Original.setForeground(Color.blue);
+		
+		Original.setSize(300,55);
 		Original.setBackground(Color.black);
-		Original.setLocation(42,315);
+		Original.setLocation(50,350);
 		menuJFrame.getContentPane().add(Original);
 		
-		JButton Russian = new JButton();
-		Russian.setFont(welcomeLabel.getFont().deriveFont(32.0f));
+		JLabel Russian = new JLabel();
+		Russian.setFont(welcomeLabel.getFont().deriveFont(26.0f));
 		Russian.setBorder(border);
-		Russian.setText("Play Russian 2048");
+		Russian.setText(" Play Russian Style ->");
 		Russian.setOpaque(false);
-		Russian.setForeground(Color.black);
+		Russian.setForeground(Color.blue);
 		
-		Russian.setSize(310,75);
+		Russian.setSize(300,55);
 		Russian.setBackground(Color.black);
-		Russian.setLocation(42,440);
+		Russian.setLocation(50,440);
 		menuJFrame.getContentPane().add(Russian);
 		
-		Original.addActionListener(new ActionListener()
+		
+		JButton OrigOpt1 = new JButton();
+		JButton OrigOpt2 = new JButton();
+		JButton RussOpt1 = new JButton();
+		JButton RussOpt2 = new JButton();
+		
+		
+		border = BorderFactory.createLineBorder(Color.black, 2);
+		OrigOpt1.setBorder(border);
+		OrigOpt1.setText("4 X 4");
+		OrigOpt1.setOpaque(true);
+		OrigOpt1.setForeground(Color.white);
+		OrigOpt1.setFont(welcomeLabel.getFont().deriveFont(36.0f));
+		OrigOpt1.setSize(140,60);
+		OrigOpt1.setBackground(Color.black);
+		OrigOpt1.setLocation(400,345);
+		menuJFrame.getContentPane().add(OrigOpt1);
+		OrigOpt1.addActionListener(new ActionListener()
 		{
 			@Override
 			  public void actionPerformed(ActionEvent e)
 			  {
 			    //call the Controller function start game
 				Controller2048.gameType = 0;
+				Controller2048.ARRAY_WIDTH = 4;
+				Controller2048.ARRAY_HEIGHT = 4;
 			    Controller2048.newGame();
 			  }
 
 			
 			});
 		
-		Russian.addActionListener(new ActionListener()
+		OrigOpt2.setBorder(border);
+		OrigOpt2.setText("8 X 8");
+		OrigOpt2.setOpaque(true);
+		OrigOpt2.setForeground(Color.white);
+		OrigOpt2.setFont(welcomeLabel.getFont().deriveFont(36.0f));
+		OrigOpt2.setSize(140,60);
+		OrigOpt2.setBackground(Color.black);
+		OrigOpt2.setLocation(570,345);
+		menuJFrame.getContentPane().add(OrigOpt2);
+		OrigOpt2.addActionListener(new ActionListener()
 		{
 			@Override
 			  public void actionPerformed(ActionEvent e)
 			  {
-			    //call the Controller function to start game
-				Controller2048.gameType = 1;
+			    //call the Controller function start game
+				Controller2048.gameType = 0;
+				Controller2048.ARRAY_WIDTH = 8;
+				Controller2048.ARRAY_HEIGHT = 8;
 			    Controller2048.newGame();
 			  }
 
 			
 			});
 		
-		
-		String[] dimArray = {"4 X 4", "6 X 6", "8 X 8"};
-        JComboBox<String> OrigDim = new JComboBox<>(dimArray);
-//     OrigDim.setPreferredSize(new Dimension(200, 100));
+		RussOpt1.setBorder(border);
+		RussOpt1.setText("5 X 7");
+		RussOpt1.setOpaque(true);
+		RussOpt1.setForeground(Color.white);
+		RussOpt1.setFont(welcomeLabel.getFont().deriveFont(36.0f));
+		RussOpt1.setSize(140,60);
+		RussOpt1.setBackground(Color.black);
+		RussOpt1.setLocation(400,435);
+		menuJFrame.getContentPane().add(RussOpt1);
+		RussOpt1.addActionListener(new ActionListener()
+		{
+			@Override
+			  public void actionPerformed(ActionEvent e)
+			  {
+			    //call the Controller function start game
+				Controller2048.gameType = 1;
+				Controller2048.ARRAY_WIDTH = 5;
+				Controller2048.ARRAY_HEIGHT = 7;
+			    Controller2048.newGame();
+			  }
 
-    OrigDim.setFont(welcomeLabel.getFont().deriveFont(32.0f));
-        OrigDim.setSize(400,400);
-        //Orig
-        OrigDim.setVisible(false);
-        OrigDim.setVisible(true);
+			
+			});
+		
+		RussOpt2.setBorder(border);
+		RussOpt2.setText("7 X 9");
+		RussOpt2.setOpaque(true);
+		RussOpt2.setForeground(Color.white);
+		RussOpt2.setFont(welcomeLabel.getFont().deriveFont(36.0f));
+		RussOpt2.setSize(140,60);
+		RussOpt2.setBackground(Color.black);
+		RussOpt2.setLocation(570,435);
+		menuJFrame.getContentPane().add(RussOpt2);
+		RussOpt2.addActionListener(new ActionListener()
+		{
+			@Override
+			  public void actionPerformed(ActionEvent e)
+			  {
+			    //call the Controller function start game
+				Controller2048.gameType = 1;
+				Controller2048.ARRAY_WIDTH = 7;
+				Controller2048.ARRAY_HEIGHT = 9;
+			    Controller2048.newGame();
+			  }
+
+			
+			});
         
-       
-        
-		
-		OrigDim.setOpaque(false);
-		OrigDim.setForeground(Color.black);
-		
-		OrigDim.setLocation(500,315);
-		menuJFrame.getContentPane().add(OrigDim);
-		
-		
 		
 	}
 	

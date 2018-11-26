@@ -21,11 +21,11 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
 
-	public static final int ARRAY_WIDTH = 7;
-	public static final int ARRAY_HEIGHT = ARRAY_WIDTH;
+	public static int ARRAY_WIDTH = 7;
+	public static int ARRAY_HEIGHT = ARRAY_WIDTH;
 	public static final int RUSSIAN_ARRAY_HEIGHT = ARRAY_WIDTH +2;
-	public static final int FRAME_WIDTH = 68*ARRAY_WIDTH;
-	public static final int FRAME_HEIGHT = 68*ARRAY_HEIGHT;
+	public static int FRAME_WIDTH = 68*ARRAY_WIDTH;
+	public static int FRAME_HEIGHT = 68*ARRAY_HEIGHT;
 	public static final int RUSSIAN_FRAME_HEIGHT = FRAME_HEIGHT+132;
 
 	
@@ -56,6 +56,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public boolean inMainMenu;
 	public MainMenu menu;
 	public static JFrame menuFrame;
+	public static Dimension dim;
 
 	
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
@@ -69,7 +70,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static int gameType = 1;
 	
 	public static JFrame gameFrame2048;
-	private Container contentPane2048;
+	private static Container contentPane2048;
 	private java.util.Timer universalGameTimer = new java.util.Timer();
 	
 	
@@ -77,16 +78,21 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
 		
+		
+
+		menu = new MainMenu();
+		menuFrame = menu.getFrame();
+		menuFrame.setVisible(true);
+		
 		gameFrame2048 = new JFrame(JFrameTitle);
-		gameFrame2048.setSize(windowWidth, windowHeight);
+		gameFrame2048.setVisible(false);
 		
 		
 		
 		//Get screen size
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		dim = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		//Set gameFrame2048 to the middle of the screen
-		gameFrame2048.setLocation(dim.width/2-windowWidth/2, dim.height/2-windowHeight/2);
 		gameFrame2048.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame2048.setResizable(false);
 		
@@ -94,38 +100,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
-
-		if(gameType ==0) 
-		{
-			contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
-		}
-		else
-		{
-			
-			contentPane2048.setSize(FRAME_WIDTH, RUSSIAN_FRAME_HEIGHT);
-			gameFrame2048.setSize(contentPane2048.getWidth()+18, contentPane2048.getHeight()+42);
-		}
-
-
-		menu = new MainMenu();
-		menuFrame = menu.getFrame();
-
-		
-		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		gameFrame2048.setSize(contentPane2048.getWidth(), contentPane2048.getHeight()+24);
-
-
-		
-		contentPane2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		
-		//Create content pane for main menu
-		
-		
-		gameFrame2048.setVisible(false);
-		menuFrame.setVisible(true);
-		
-		
 		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
 		
 		contentPane2048.addMouseListener(this);
@@ -137,12 +111,22 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	public static void newGame() 
 	{
-		
 		menuFrame.setVisible(false);
+		
+		//Now to reset sizing variables
+		FRAME_WIDTH = 68*ARRAY_WIDTH;
+		FRAME_HEIGHT = 68*ARRAY_HEIGHT;
+		
+		gameFrame2048.getContentPane().setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		gameFrame2048.setSize(contentPane2048.getWidth(), contentPane2048.getHeight()+24);
+		gameFrame2048.setLocation(dim.width/2-FRAME_WIDTH/2, dim.height/2-FRAME_HEIGHT/2);
+		System.out.println("Content width: " + contentPane2048.getWidth());
+		System.out.println("Content height: " + contentPane2048.getHeight());
+		
+		
 		
 		if(gameType == 0)
 		{
-			
 			myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
 		}
 		else
@@ -154,10 +138,9 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		gameIsReady = true;
 		time = 0;
 		gameFrame2048.setVisible(true);
-		myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+		myGame.draw();
 		time = 0;
 		
-		System.out.println("drawing in new game");
 	}
 	
 	
@@ -187,7 +170,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 					{
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
-						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+						myGame.draw();
 					}
 				}
 			
@@ -231,7 +214,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 						
 						time = 0;
 						//myGame.populate(ARRAY_WIDTH, ARRAY_HEIGHT);
-						myGame.draw(FRAME_WIDTH,FRAME_HEIGHT);
+						myGame.draw();
 					}
 				}
 			
