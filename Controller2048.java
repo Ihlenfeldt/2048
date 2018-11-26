@@ -65,7 +65,10 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	
 	
 	//Keeps track of game type Original = 0, Russian = 1
-
+	
+	public static final int RUSSIAN_GAME = 1;
+	public static final int ORIGINAL_GAME = 0;
+	
 	public static int gameType = 1;
 	
 	public static JFrame gameFrame2048;
@@ -79,9 +82,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		
 		gameFrame2048 = new JFrame(JFrameTitle);
 		gameFrame2048.setSize(windowWidth, windowHeight);
-		
-		
-		
+			
 		//Get screen size
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -284,7 +285,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		// TODO Auto-generated method stub
 		int keyPressed_Code = e.getKeyCode();
-		if(gameType == 0)
+		if(gameType == ORIGINAL_GAME)
 		{
 			switch(keyPressed_Code) {
 			case UP_ARROW: 
@@ -362,7 +363,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			break;
 			
 			case DOWN_ARROW: 
-				myGame.moveDown();
+				//myGame.moveDown();
 			break;
 			
 			case RIGHT_ARROW:

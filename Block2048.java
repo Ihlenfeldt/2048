@@ -221,7 +221,7 @@ public class Block2048
 		return !lockedIn;
 	}
 	
-	public void drawBlock(int width, int heigth) 
+	public void drawBlock(int height, int width) 
 	{
 		
 		if(blockValue != 0)
