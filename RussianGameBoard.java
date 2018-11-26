@@ -111,14 +111,9 @@ public class RussianGameBoard implements GameBoard {
 					else
 					{
 						gameArray[i][j].setLockedIn(true);
-						Boolean stillCombining = true;
-						while(stillCombining)
-						{
-							boolean output = combineAround(i,j);
+							combineAround(i,j);
 							moveDown();
-							System.out.println(output);
-							stillCombining = output;
-						}
+							
 						needToPopulate = true;
 					}
 				
@@ -142,7 +137,7 @@ public class RussianGameBoard implements GameBoard {
 		for(int i = 0; i < length; i++) 
 		{
 			int holder = -1;
-			for(int j = length-1; j > 0; j--) 
+			for(int j = height-1; j > 0; j--) 
 			{
 				if(gameArray[j][i].getValue() == 0) 
 				{
