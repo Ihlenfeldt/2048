@@ -222,6 +222,7 @@ public class Block2048
 	}
 	
 	public void drawBlock() 
+
 	{
 		
 		if(blockValue != 0)

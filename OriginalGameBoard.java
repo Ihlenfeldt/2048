@@ -286,13 +286,13 @@ public class OriginalGameBoard implements GameBoard
 	}
 
 	@Override
-	public void draw( int width, int height) 
+	public void draw() 
 	{
 		for(int i = 0; i < length; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				gameArray[i][j].drawBlock(height/4, width/4);
+				gameArray[i][j].drawBlock();
 			}
 		}
 	}
