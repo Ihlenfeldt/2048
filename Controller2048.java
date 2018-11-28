@@ -347,7 +347,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			break;
 			
 			case DOWN_ARROW: 
-				//myGame.moveDown();
+				((RussianGameBoard) myGame).dropBlock();
 			break;
 			
 			case RIGHT_ARROW:

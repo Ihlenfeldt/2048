@@ -24,7 +24,4 @@ public void draw();
 public boolean getNeedToPopulate();
 public void setNeedToPopulate(boolean b);
 
-
-
-
 }
