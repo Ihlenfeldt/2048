@@ -47,11 +47,11 @@ public class RussianGameBoard implements GameBoard {
 		{
 			for(int j = length-1; j >=0; j--)
 			{
-				//Looks for the moving block
+				//Identifies the falling block
 				if(gameArray[i][j].getLockedIn() == false)
 				{
-					//prevents out of bounds exception if block is already on the left edge of the gameboard
-					if(j != length-1)
+					//prevents out of bounds exception or falling block moving into already occupied space. 
+					if(j != length-1 &&(gameArray[i][j+1].getValue()==0))
 					{
 						gameArray[i][j+1].setBlockValue(gameArray[i][j].getValue());
 						gameArray[i][j+1].setLockedIn(false);
@@ -70,11 +70,11 @@ public class RussianGameBoard implements GameBoard {
 		{
 			for(int j = 0; j < length; j++)
 			{
-				//Looks for the moving block
+				//Identifies the falling block
 				if(gameArray[i][j].getLockedIn() == false)
 				{
-					//prevents out of bounds exception if block is already on the left edge of the gameboard
-					if(j != 0)
+					//prevents out of bounds exception or falling block moving into already occupied space. 
+					if(j != 0 &&(gameArray[i][j-1].getValue()==0))
 					{
 						gameArray[i][j-1].setBlockValue(gameArray[i][j].getValue());
 						gameArray[i][j-1].setLockedIn(false);
@@ -96,42 +96,47 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	public void fall() {
-	boolean test = false;
+		boolean wasThereACombination = false;
+		int loopCount = 0;
 	 for(int i = height-1; i >= 0; i--)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				
+				//If falling block is not on the bottom row
 				if(gameArray[i][j].getLockedIn() == false && i != height-1)
 				{
+					//if the space below the falling block is open, then block falls.
 					if(lookDown(i,j).getValue()==0)
 					{
 						gameArray[i+1][j].setBlockValue(gameArray[i][j].getValue());
 						gameArray[i+1][j].setLockedIn(false);
 						gameArray[i][j].setBlockValue(0);
 					}
+					//if there is a block beneath falling block then lock the falling block in place and look for combinations around it. 
 					else
 					{
 						gameArray[i][j].setLockedIn(true);
-						test = combineAround(i,j);
-						//moveDown();
-						if(test)
+						//look for combinations around the block 
+						wasThereACombination = combineAround(i,j);
+						
+						//while loop continues to make combinations until there are no more on the board.
+						while(wasThereACombination)
 						{
+							loopCount ++;
+							System.out.println("Second Pass At Combine Around *******************");
 							for(int k = height-1; k >= 0; k--)
 							{
 								for(int l = 0; l < length; l++)
 								{
-									if(gameArray[k][j].isNewCombination()==true)
-									{
-										test = combineAround(k,j);
+									if(gameArray[k][l].isNewCombination()) {
+										System.out.println("Block " + k + ", " + l + " is a new combination");
+										wasThereACombination = combineAround(k,l);
+										System.out.println("Was there a combine on pass " + loopCount  + wasThereACombination);
 									}
 								}
-								
-							}
+							}	
 						}
-						System.out.println(test);
-						
-						
+
 						needToPopulate = true;
 					}
 				
@@ -139,34 +144,38 @@ public class RussianGameBoard implements GameBoard {
 				if(gameArray[i][j].getLockedIn() == false && i == height-1)
 				{
 					gameArray[i][j].setLockedIn(true);
-					test=combineAround(i,j);
-					//moveDown();
-					if(test)
+					wasThereACombination = combineAround(i,j);
+					
+					while(wasThereACombination)
 					{
+						System.out.println("Second Pass At Combine Around *******************");
 						for(int k = height-1; k >= 0; k--)
 						{
 							for(int l = 0; l < length; l++)
 							{
-								if(gameArray[k][j].isNewCombination()==true)
-								{
-									test = combineAround(k,j);
+								if(gameArray[k][l].isNewCombination()) {
+									System.out.println("Block " + k + ", " + l + " is a new combination");
+									wasThereACombination = combineAround(k,l);
+									System.out.println("Was there a combine on pass " + loopCount  + wasThereACombination);
 								}
 							}
-							
-						}
+						}	
 					}
-					System.out.println(test);
+					
+					
+					loopCount = 0;
 					needToPopulate = true;
 				}
 				
 			}
 		}
 	}
-
+	
 	
 	@Override
 	public void moveDown() {
-		
+		printArray();
+		System.out.println();
 		for(int i = 0; i < length; i++) 
 		{
 			int holder = -1;
@@ -182,8 +191,15 @@ public class RussianGameBoard implements GameBoard {
 			{
 				for(int k = holder - 1; k >= 0; k--) 
 				{
+					
 					if(gameArray[k][i].getValue() != 0) 
 					{
+						if(gameArray[k][i].isNewCombination())
+						{
+							gameArray[holder][i].setNewCombination(true);
+							gameArray[k][i].setNewCombination(false);
+							
+						}
 						gameArray[holder][i].setBlockValue(gameArray[k][i].getValue());
 						gameArray[k][i].setBlockValue(0);
 						holder --;
@@ -191,14 +207,42 @@ public class RussianGameBoard implements GameBoard {
 				}
 			}
 		}
+		printArray();
 	}
 
 	public void dropBlock()
 	{
+		boolean wereThereCombinations = false;
 		moveDown();
+		
+		for(int i = 0; i < length; i++) 
+		{
+			int holder = -1;
+			for(int j = height-1; j > 0; j--) 
+			{
+				if(gameArray[j][i].isNewCombination()) 
+				{
+					wereThereCombinations = combineAround(i,j);
+					
+					while(wereThereCombinations)
+					{
+						System.out.println("Second Pass At Combine Around *******************");
+						for(int k = height-1; k >= 0; k--)
+						{
+							for(int l = 0; l < length; l++)
+							{
+								if(gameArray[k][l].isNewCombination()) {
+									System.out.println("Block " + k + ", " + l + " is a new combination");
+									wereThereCombinations = combineAround(k,l);
+								}
+							}
+						}	
+					}
+				}
+			}
+		}
 		needToPopulate = true;
-		combineDown();
-
+		
 	}
 	@Override
 	public boolean isGameOver() {
@@ -211,25 +255,26 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 public Block2048 lookUp(int i, int j) {
-		
+	System.out.println("looking UP at :" + (i-1) + ", " + j );
 		return gameArray[i-1][j];
 	}
 
 	@Override
 	public Block2048 lookRight(int i, int j) {
-
+		
+		System.out.println("looking RIGHT at :" + i + ", " + (j+1) );
 		return gameArray[i][j+1];
 	}
 
 	@Override
 	public Block2048 lookDown(int i, int j) {
-		
+		System.out.println("looking DOWN at :" + (i+1) + ", " + j );
 		return gameArray[i+1][j];
 	}
 
 	@Override
 	public Block2048 lookLeft(int i, int j) {
-		
+		System.out.println("looking LEFT at :" + i + ", " + (j-1) );
 		return gameArray[i][j-1];
 	}
 
@@ -302,225 +347,253 @@ public Block2048 lookUp(int i, int j) {
 	
 	public boolean combineAround(int i, int j)
 	{
-		combineTotal = gameArray[i][j].getValue();
-		boolean combined = false;
+		System.out.println(i + ", "+ j);
+		boolean didWeCombine = false;
+		gameArray[i][j].setNewCombination(false);
+		combineTotal= gameArray[i][j].getValue();
+		Block2048 myBlock = gameArray[i][j];
+		System.out.println(myBlock.getValue());
+		//If the block is in the top row
 		if(i==0) 
 		{
-			System.out.println("Top Row");
+			//If block is in the top row, left column
 			if(j==0) 
 			{
-				System.out.println("Left Column");
 				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
 				{
-					combineTotal += lookRight(i,j).getValue();
-					gameArray[i][j+1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookRight(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookDown(i,j).getValue();
-					gameArray[i+1][j].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookDown(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
+				
 				gameArray[i][j].setBlockValue(combineTotal);
-				gameArray[i][j].setNewCombination(true);
+				
 
 			}
+			//If block is in the top row, right column.
 			else if(j== length-1)
 			{
-				System.out.println("Right Column");
 				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookLeft(i,j).getValue();
-					gameArray[i][j-1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookLeft(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookDown(i,j).getValue();
-					gameArray[i+1][j].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookDown(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				gameArray[i][j].setBlockValue(combineTotal);
-				gameArray[i][j].setNewCombination(true);
+				
+				
 			}
+			//If block is in the top row but not in the left or right corner
 			else
 			{
-				System.out.println("Center columns!!!!");
 				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
 				{
-					combineTotal += lookRight(i,j).getValue();
-					gameArray[i][j+1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookRight(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookLeft(i,j).getValue();
-					gameArray[i][j-1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookLeft(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookDown(i,j).getValue();
-					gameArray[i+1][j].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookDown(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
+				
 				gameArray[i][j].setBlockValue(combineTotal);
-				gameArray[i][j].setNewCombination(true);
+				
+				
 			}
 		}
+		// If block is in the bottom row
 		else if(i == height-1)
 		{
-			System.out.println("Bottom Row");
+			//If block is in the bottom left corner
 			if(j == 0)
 			{
-				System.out.println("Left Column");
 				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
 				{
-					combineTotal += lookRight(i,j).getValue();
-					gameArray[i][j+1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookRight(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 
 				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookUp(i,j).getValue();
-					gameArray[i-1][j].setBlockValue(0);
-					combined = true;
-				}
-				gameArray[i][j].setBlockValue(combineTotal);
-				gameArray[i][j].setNewCombination(true);
-			}
-			else if(j == length -1)
-			{
-				System.out.println("Right Column");
-				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					combineTotal += lookLeft(i,j).getValue();
-					gameArray[i][j-1].setBlockValue(0);
-					combined = true;
-				}
-				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					combineTotal += lookUp(i,j).getValue();
-					gameArray[i-1][j].setBlockValue(0);
-					combined = true;
-					gameArray[i][j].setBlockValue(combineTotal);
+					combineTotal = combineTotal*2;
+					lookUp(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
 				}
+				
+				gameArray[i][j].setBlockValue(combineTotal);
+				
+				
 			}
-			else
+			//If block is in the bottom row, right column
+			else if(j == length -1)
 			{
-				System.out.println("Center Columns");
-				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				if(lookLeft(i,j).getValue()== gameArray[i][j].getValue())
 				{
-					combineTotal += lookRight(i,j).getValue();
-					gameArray[i][j+1].setBlockValue(0);
-					combined = true;
-				}
-				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					combineTotal += lookLeft(i,j).getValue();
-					gameArray[i][j-1].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookLeft(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
 				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 				{
-					combineTotal += lookUp(i,j).getValue();
-					gameArray[i-1][j].setBlockValue(0);
-					combined = true;
+					combineTotal = combineTotal*2;
+					lookUp(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
 				}
+				
 				gameArray[i][j].setBlockValue(combineTotal);
-				gameArray[i][j].setNewCombination(true);
+				
+				
+			}
+			//If block is in the bottom row, but not in the bottom corners
+			else
+			{
+	
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					combineTotal = combineTotal*2;
+					lookRight(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
+				}
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					combineTotal = combineTotal*2;
+					lookLeft(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
+				}
+				if(lookUp(i,j).getValue()== gameArray[i][j].getValue())
+				{
+					combineTotal = combineTotal*2;
+					lookUp(i,j).setBlockValue(0);
+					gameArray[i][j].setNewCombination(true);
+				}
+				
+				gameArray[i][j].setBlockValue(combineTotal);
+				
+				
 			}
 		}
+		//If block is in the left column, but not in the top or bottom left corners
 		else if(j == 0)
 		{
-			System.out.println("Left Column");
+			System.out.println("LeftColumn combine start: " + combineTotal);
 			if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
 			{
-				combineTotal += lookRight(i,j).getValue();
-				gameArray[i][j+1].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Left Column combine: " +combineTotal);
+				lookRight(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookUp(i,j).getValue();
-				gameArray[i-1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Left Column combine: " +combineTotal);
+				lookUp(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookDown(i,j).getValue();
-				gameArray[i+1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Left Column combine: " +combineTotal);
+				lookDown(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
+			
 			gameArray[i][j].setBlockValue(combineTotal);
-			gameArray[i][j].setNewCombination(true);
+			
 		}
+		//If block is in the right column, but not in the top or bottom right corners
 		else if(j== length -1)
 		{
-			System.out.println("Right Column");
 			if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookLeft(i,j).getValue();
-				gameArray[i][j-1].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				lookLeft(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookUp(i,j).getValue();
-				gameArray[i-1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				lookUp(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookDown(i,j).getValue();
-				gameArray[i+1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				lookDown(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
+			
 			gameArray[i][j].setBlockValue(combineTotal);
-			gameArray[i][j].setNewCombination(true);
+
+			
 		}
+		
+		//If block is away from all edges
 		else
 		{
-			System.out.println("Center of Array");
+			System.out.println("Middle Array combine start: " + combineTotal);
 			if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
 			{
-				combineTotal += lookRight(i,j).getValue();
-				gameArray[i][j+1].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Middle Array combine: " + combineTotal);
+				lookRight(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookLeft(i,j).getValue();
-				gameArray[i][j-1].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Middle Array combine: " + combineTotal);
+				lookLeft(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				combineTotal += lookUp(i,j).getValue();
-				gameArray[i-1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Middle Array combine: " + combineTotal);
+				lookUp(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
-				//System.out.println("Looking Down");
-				combineTotal += lookDown(i,j).getValue();
-				gameArray[i+1][j].setBlockValue(0);
-				combined = true;
+				combineTotal = combineTotal*2;
+				System.out.println("Middle Array combine: " + combineTotal);
+				lookDown(i,j).setBlockValue(0);
+				gameArray[i][j].setNewCombination(true);
 			}
+			
 			gameArray[i][j].setBlockValue(combineTotal);
-			gameArray[i][j].setNewCombination(true);
+	
+			
 		}
 		
-		
-		System.out.println(combineTotal);
-		combineTotal = 0;
+		didWeCombine = gameArray[i][j].isNewCombination();
 		moveDown();
-		return combined;
-		
+		System.out.println("Combine Total: " + combineTotal);
+		combineTotal = 0;
+		return didWeCombine;		
 	}
 	
 	@Override
@@ -573,11 +646,11 @@ public Block2048 lookUp(int i, int j) {
 	
 	public void printArray() 
 	{
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				//System.out.print(gameArray[i][j].getValue() + " ");
+				//System.out.print(gameArray[i][j].isNewCombination() + " ");
 			}
 			//System.out.println("");
 		}

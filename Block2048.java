@@ -36,12 +36,12 @@ public class Block2048
 		//Setting an image to the block depending on its value
 		
 		blockJFrame = frame;
-
         blockJLabel = new JLabel();
         blockJLabel.setBounds (10, 10, 10, 10); // arbitrary, will change later
         blockJFrame.getContentPane().add(blockJLabel);
         blockJLabel.setVisible(false);
         blockJLabel.setVisible(true);
+        newCombination = false;
 
 		try 
 		{
@@ -198,6 +198,16 @@ public class Block2048
 		yCoord = y;
 	}
 	
+	public int getArrayX()
+	{
+		return xCoord/67;
+	}
+	
+	public int getArrayY()
+	{
+		return yCoord/67;
+	}
+	
 	public boolean getLockedIn()
 	{
 		return lockedIn;
@@ -213,7 +223,8 @@ public class Block2048
 	}
 	
 	public void setNewCombination(boolean passedNewCombination) {
-		this.newCombination = passedNewCombination;
+		System.out.println("SET BLOCK " + this.yCoord/67 +", "+ this.xCoord/67 + " NEW COMBO TO: " + passedNewCombination);
+		newCombination = passedNewCombination;
 	}
 	
 	public boolean isMoving() 
