@@ -35,7 +35,7 @@ public class RussianGameBoard implements GameBoard {
 			{
 				gameArray[i][j] = new Block2048(frame, 0, true);
 				gameArray[i][j].setX(j*67);
-				gameArray[i][j].setY(i*67);
+				gameArray[i][j].setY(i*67 + Controller2048.barHeight);
 			}
 		}
 		populate();
@@ -656,6 +656,9 @@ public Block2048 lookUp(int i, int j) {
 		}
 	}
 
-
+    public int getScore()
+    {
+    	return gameScore;
+    }
 
 }
