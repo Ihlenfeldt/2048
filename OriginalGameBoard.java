@@ -35,13 +35,14 @@ public class OriginalGameBoard implements GameBoard
 			{
 				gameArray[i][j] = new Block2048(frame, 0,true);
 				gameArray[i][j].setX(j*67);
-				gameArray[i][j].setY(i*67);
+				gameArray[i][j].setY(i*67 + Controller2048.barHeight);
 			}
 			
 		}
 		
 		populate();
 		populate();
+		//populate();populate();populate();populate();populate();populate();populate();populate();populate();populate();
 	}
 	
 	public void populate() 
@@ -403,4 +404,6 @@ public class OriginalGameBoard implements GameBoard
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }

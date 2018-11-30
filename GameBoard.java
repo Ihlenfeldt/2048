@@ -2,6 +2,8 @@ package game2048;
 
 import java.awt.Graphics;
 
+import javax.swing.JFrame;
+
 public interface GameBoard {
 
 public void combineRight();
@@ -23,5 +25,7 @@ public boolean isFull();
 public void draw();
 public boolean getNeedToPopulate();
 public void setNeedToPopulate(boolean b);
+public int getScore();
+
 
 }
