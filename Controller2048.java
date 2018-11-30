@@ -144,6 +144,11 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else
 		{
+			if(myGame != null)
+			{
+				myGame = null;
+			}
+			gameFrame2048.getContentPane().removeAll();
 			myGame = new RussianGameBoard(gameFrame2048,ARRAY_WIDTH, ARRAY_HEIGHT);
 		}
 		
@@ -191,7 +196,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 		else //Game Type is 1 (Russian)
 		{
-			if(finished)
+			if(finished && gameIsReady)
 			{
 				gameIsReady = false;
 				System.out.println("Game Over"); 
@@ -201,6 +206,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			}
 			else if (gameIsReady)
 			{
+				myGame.draw();
 				time++;
 				score = myGame.getScore();
 				bar.setText("Score: " + score);

@@ -14,6 +14,7 @@ public class OriginalGameBoard implements GameBoard
 	private int capacity = 0;
 	private int numberOfBlocks = 0;
 	public int gameScore = 0;
+	Block2048 newestBlock;
 
 	public OriginalGameBoard(JFrame frame, int passedLength, int passedHeight)
 	{
@@ -59,10 +60,13 @@ public class OriginalGameBoard implements GameBoard
 				if(whatNumber > 0.5) 
 				{
 					gameArray[firstRandom][secondRandom].setBlockValue(2);
+					changeNewestBlock(firstRandom,secondRandom);
+
 				}
 				else
 				{
-					gameArray[firstRandom][secondRandom].setBlockValue(4);;
+					gameArray[firstRandom][secondRandom].setBlockValue(4);
+					changeNewestBlock(firstRandom,secondRandom);
 				}
 				stillPicking = false;
 			}
@@ -404,6 +408,16 @@ public class OriginalGameBoard implements GameBoard
 		// TODO Auto-generated method stub
 		
 	}
-	
+	public void changeNewestBlock(int col, int row)
+	{
+		if(newestBlock != null)
+		{ //take off border
+			newestBlock.removeBorder();
+		}
+		
+		//Assign next block as newest block
+		newestBlock = gameArray[col][row];
+		gameArray[col][row].addBorder();
+	}
 	
 }

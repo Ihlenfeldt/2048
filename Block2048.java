@@ -1,11 +1,13 @@
 package game2048;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -233,7 +235,6 @@ public class Block2048
 	}
 	
 	public void drawBlock() 
-
 	{
 		
 		if(blockValue != 0)
@@ -248,4 +249,17 @@ public class Block2048
 		}
 		 
 	}
+	
+	public void addBorder()
+	{
+		javax.swing.border.Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+		blockJLabel.setBorder(border);
+		
+	}
+	
+	public void removeBorder()
+	{
+		blockJLabel.setBorder(null);
+	}
+	
 }
