@@ -1,11 +1,10 @@
 package game2048;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -15,24 +14,21 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
 
-import javafx.scene.layout.Border;
 
 public class MainMenu 
 {
 	JLabel welcomeLabel;
     JFrame menuJFrame;
+    Dimension screenSize;
 	public MainMenu()
 	{
 		menuJFrame = new JFrame("Menu");
 		menuJFrame.setSize(795, 820);
-		menuJFrame.setLocation(50,50);
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		menuJFrame.setLocation(screenSize.width/2-795/2, screenSize.height/2-820/2);
 		menuJFrame.getContentPane().setLayout(null);
 		menuJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -51,6 +47,8 @@ public class MainMenu
         welcomeLabel.setBackground(Color.white);
         javax.swing.border.Border border = BorderFactory.createLineBorder(Color.BLUE, 5);
         welcomeLabel.setBorder(border);
+        
+        
         
         welcomeLabel.setLocation(91, 175); // arbitrary, will change later
         menuJFrame.getContentPane().add(welcomeLabel);
@@ -88,7 +86,6 @@ public class MainMenu
 		Russian.setBackground(Color.black);
 		Russian.setLocation(50,440);
 		menuJFrame.getContentPane().add(Russian);
-		
 		
 		JButton OrigOpt1 = new JButton();
 		JButton OrigOpt2 = new JButton();

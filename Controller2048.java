@@ -10,14 +10,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.TimerTask;
-
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
+
 
 public class Controller2048 extends TimerTask implements MouseListener, KeyListener{
 
@@ -121,10 +118,28 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		menuFrame.setVisible(false);
 		
-		
 		//Now to reset sizing variables
-		FRAME_WIDTH = 67*ARRAY_WIDTH;
-		FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 22;
+		if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 4)
+		{
+			FRAME_WIDTH = 68*ARRAY_WIDTH;
+			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 20;
+		}
+		else if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 8)
+		{
+			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
+			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 12;
+		}
+		
+		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 5)
+		{
+			FRAME_WIDTH = 68*ARRAY_WIDTH;
+			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 7;
+		}
+		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 7)
+		{
+			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
+			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 1;
+		}
 		
 		gameFrame2048.getContentPane().setSize(FRAME_WIDTH, FRAME_HEIGHT - barHeight - 22);
 		gameFrame2048.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -133,7 +148,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		bar.setLocation(0,0);
 		
 		//Create the new game
-		if(gameType == 0)
+		if(gameType == ORIGINAL_GAME)
 		{
 			if(myGame != null)
 			{
@@ -165,8 +180,8 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void run() 
 	{
-		System.out.println("Running");
-		if(gameType == 0)
+		System.out.println(time);
+		if(gameType == ORIGINAL_GAME)
 		{
 			if(finished && gameIsReady)
 			{
@@ -181,14 +196,16 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				time++;
 				score = myGame.getScore();
 				bar.setText("Score: " + score);
-				if(myGame.isGameOver())
-				{
-					finished = true;
-				}
-				else if(time >= 5000)
+				if(time >= 5)
 				{
 					time = 0;
 					myGame.populate();
+				}
+				else if(myGame.isGameOver())
+				{
+					finished = true;
+					
+					
 					
 				}
 			}
@@ -271,74 +288,48 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-		if(myGame.isFull())
+		//if a key is pressed, the timer starts over. 
+		time = 0;
+		
+		//check if the game is over before allowing a move. 
+		if(myGame.isGameOver())
 		{
 			finished = true;
 		}
-		// TODO Auto-generated method stub
+		//get the code of the pressed key
 		int keyPressed_Code = e.getKeyCode();
+		
+		//use keyPressed_Code
 		if(gameType == ORIGINAL_GAME && !finished && gameIsReady)
 		{
 			switch(keyPressed_Code) {
 			case UP_ARROW: 
+			case NUMPAD_8:
+			case KEY_W: 
 				myGame.moveUp();
 				myGame.combineUp();
 			break;
 			
 			case DOWN_ARROW: 
+			case NUMPAD_2:
+			case KEY_S: 
 				myGame.moveDown();
 				myGame.combineDown();
 			break;
 			
 			case RIGHT_ARROW:
-				myGame.moveRight();
-				myGame.combineRight();
-			break;
-			
-			case LEFT_ARROW:
-				myGame.moveLeft();
-				myGame.combineLeft();
-			break;
-			
 			case NUMPAD_6:
-				myGame.moveRight();
-				myGame.combineRight();
-			break;
-			
-			case NUMPAD_8:
-				myGame.moveUp();
-				myGame.combineUp();
-			break;
-			
-			case NUMPAD_4:
-				myGame.moveLeft();
-				myGame.combineLeft();
-			break;
-			
-			case NUMPAD_2:
-				myGame.moveDown();
-				myGame.combineDown();
-			break;
-			
-			case KEY_W:
-				myGame.moveUp();
-				myGame.combineUp();
-			break;
-			
 			case KEY_D:
 				myGame.moveRight();
 				myGame.combineRight();
 			break;
 			
-			case KEY_S:
-				myGame.moveDown();
-				myGame.combineDown();
-			break;
-			
+			case LEFT_ARROW:
+			case NUMPAD_4:
 			case KEY_A:
 				myGame.moveLeft();
 				myGame.combineLeft();
-			break; 
+			break;
 			
 			case KEY_SPACE:
 			break;
@@ -347,57 +338,34 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			break;
 			}
 		}
+		//Russian Game
 		else if(!finished && gameIsReady)
 		{
 			switch(keyPressed_Code) {
 			case UP_ARROW: 
-				myGame.moveUp();
-			break;
-			
-			case DOWN_ARROW: 
-				((RussianGameBoard) myGame).dropBlock();
-			break;
-			
-			case RIGHT_ARROW:
-				myGame.moveRight();
-			break;
-			
-			case LEFT_ARROW:
-				myGame.moveLeft();
-			break;
-			
-			case NUMPAD_6:
-				myGame.moveRight();
-			break;
-			
 			case NUMPAD_8:
-				myGame.moveUp();
-			break;
-			
-			case NUMPAD_4:
-				myGame.moveLeft();
-			break;
-			
-			case NUMPAD_2:
-				myGame.moveDown();
-			break;
-			
 			case KEY_W:
 				myGame.moveUp();
 			break;
 			
+			case DOWN_ARROW: 
+			case NUMPAD_2:
+			case KEY_S:
+				((RussianGameBoard) myGame).dropBlock();
+			break;
+			
+			case RIGHT_ARROW:
+			case NUMPAD_6:
 			case KEY_D:
 				myGame.moveRight();
 			break;
 			
-			case KEY_S:
-				myGame.moveDown();
-			break;
-			
+			case LEFT_ARROW:
+			case NUMPAD_4:
 			case KEY_A:
 				myGame.moveLeft();
-			break; 
-			
+			break;
+		
 			case KEY_SPACE:
 			break;
 			
@@ -411,15 +379,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void keyReleased(KeyEvent arg0) 
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) 
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 	public static void main(String[] args) 
 	{

@@ -136,7 +136,7 @@ public class RussianGameBoard implements GameBoard {
 								}
 							}	
 						}
-
+						
 						needToPopulate = true;
 					}
 				
@@ -334,8 +334,6 @@ public Block2048 lookUp(int i, int j) {
 	@Override
 	public void draw() 
 	{
-		//System.out.println("Height: " + height);
-		//System.out.println("Length: " + length);
 		for(int i = 0; i < height; i++)
 		{
 			for(int j = 0; j < length; j++)
