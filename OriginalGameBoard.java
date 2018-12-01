@@ -163,6 +163,7 @@ public class OriginalGameBoard implements GameBoard
 	@Override
 	public void moveLeft() 
 	{
+		System.out.println("Move Left");
 		length = gameArray.length;
 		int height = gameArray[0].length;
 		for(int i = 0; i < length; i++) 
@@ -386,7 +387,24 @@ public class OriginalGameBoard implements GameBoard
 					isValidMove = true;
 				}
 			}	
-			return isValidMove;
+			else
+			{
+				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
+				{
+					isValidMove = true;
+				}
+				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					isValidMove = true;
+				
+				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					isValidMove = true;
+				}
+				
+			}
+		}
+		return isValidMove;
 	 }  
 	
 	

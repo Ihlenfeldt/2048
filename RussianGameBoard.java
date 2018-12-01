@@ -362,12 +362,14 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookRight(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookDown(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				gameArray[i][j].setBlockValue(combineTotal);
@@ -382,15 +384,17 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookLeft(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookDown(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				gameArray[i][j].setBlockValue(combineTotal);
-				
+
 				
 			}
 			//If block is in the top row but not in the left or right corner
@@ -401,12 +405,14 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookRight(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookLeft(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
@@ -414,10 +420,10 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookDown(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				gameArray[i][j].setBlockValue(combineTotal);
-				
 				
 			}
 		}
@@ -432,6 +438,7 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookRight(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 
 				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
@@ -439,10 +446,10 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookUp(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				gameArray[i][j].setBlockValue(combineTotal);
-				
 				
 			}
 			//If block is in the bottom row, right column
@@ -453,16 +460,17 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookLeft(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookUp(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				gameArray[i][j].setBlockValue(combineTotal);
-				
 				
 			}
 			//If block is in the bottom row, but not in the bottom corners
@@ -474,22 +482,24 @@ public Block2048 lookUp(int i, int j) {
 					combineTotal = combineTotal*2;
 					lookRight(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookLeft(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				if(lookUp(i,j).getValue()== gameArray[i][j].getValue())
 				{
 					combineTotal = combineTotal*2;
 					lookUp(i,j).setBlockValue(0);
 					gameArray[i][j].setNewCombination(true);
+					setScore(combineTotal);
 				}
 				
 				gameArray[i][j].setBlockValue(combineTotal);
-				
 				
 			}
 		}
@@ -503,6 +513,7 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Left Column combine: " +combineTotal);
 				lookRight(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
@@ -510,6 +521,7 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Left Column combine: " +combineTotal);
 				lookUp(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
@@ -517,10 +529,10 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Left Column combine: " +combineTotal);
 				lookDown(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			
 			gameArray[i][j].setBlockValue(combineTotal);
-			
 		}
 		//If block is in the right column, but not in the top or bottom right corners
 		else if(j== length -1)
@@ -530,22 +542,24 @@ public Block2048 lookUp(int i, int j) {
 				combineTotal = combineTotal*2;
 				lookLeft(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
 				combineTotal = combineTotal*2;
 				lookUp(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
 				combineTotal = combineTotal*2;
 				lookDown(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			
 			gameArray[i][j].setBlockValue(combineTotal);
-
 			
 		}
 		
@@ -559,6 +573,7 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Middle Array combine: " + combineTotal);
 				lookRight(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
 			{
@@ -566,6 +581,7 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Middle Array combine: " + combineTotal);
 				lookLeft(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
 			{
@@ -573,6 +589,7 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Middle Array combine: " + combineTotal);
 				lookUp(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
 			{
@@ -580,11 +597,11 @@ public Block2048 lookUp(int i, int j) {
 				System.out.println("Middle Array combine: " + combineTotal);
 				lookDown(i,j).setBlockValue(0);
 				gameArray[i][j].setNewCombination(true);
+				setScore(combineTotal);
 			}
 			
 			gameArray[i][j].setBlockValue(combineTotal);
-	
-			
+
 		}
 		
 		didWeCombine = gameArray[i][j].isNewCombination();
@@ -658,5 +675,9 @@ public Block2048 lookUp(int i, int j) {
     {
     	return gameScore;
     }
-
+    
+    public void setScore(int addToScore)
+    {
+    	gameScore += addToScore;
+    }
 }

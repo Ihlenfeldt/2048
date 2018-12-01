@@ -211,15 +211,13 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			}
 			
 		}
-		else //Game Type is 1 (Russian)
+		else //Russian 2048
 		{
 			if(finished && gameIsReady)
 			{
 				gameIsReady = false;
 				System.out.println("Game Over"); 
 				gameOver();
-				
-				
 			}
 			else if (gameIsReady)
 			{
@@ -228,7 +226,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				score = myGame.getScore();
 				bar.setText("Score: " + score);
 				
-				if(gameType == 1)
+				if(gameType == RUSSIAN_GAME)
 				{
 					if(myGame.isGameOver())
 					{
@@ -254,8 +252,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
@@ -268,20 +265,17 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public void mouseExited(MouseEvent arg0) 
 	{
 	
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) 
 	{
-	
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) 
 	{
-		
 		
 	}
 
@@ -290,12 +284,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	{
 		//if a key is pressed, the timer starts over. 
 		time = 0;
-		
-		//check if the game is over before allowing a move. 
-		if(myGame.isGameOver())
-		{
-			finished = true;
-		}
+
 		//get the code of the pressed key
 		int keyPressed_Code = e.getKeyCode();
 		
@@ -338,7 +327,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 			break;
 			}
 		}
-		//Russian Game
+		//Russian Game Key
 		else if(!finished && gameIsReady)
 		{
 			switch(keyPressed_Code) {
@@ -400,7 +389,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	    int playOrMain = JOptionPane.showOptionDialog(null, "Your final score was " + score + "!\nWould you like to play again or return to the main menu?", 
 	    		"Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, buttons[0]);
 	    System.out.println("Prompt2");
-	    if(playOrMain == 1)
+	    if(playOrMain == RUSSIAN_GAME)
 	    {
 	    	System.out.println("New Game");
 	    	newGame();
