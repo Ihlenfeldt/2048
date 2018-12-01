@@ -136,7 +136,6 @@ public class RussianGameBoard implements GameBoard {
 								}
 							}	
 						}
-						
 						needToPopulate = true;
 					}
 				
