@@ -28,6 +28,7 @@ public class Block2048
     ImageIcon pic = new ImageIcon();
     JLabel blockJLabel;
     JFrame blockJFrame;
+    int borderWidth;
     
     
 
@@ -44,6 +45,7 @@ public class Block2048
         blockJLabel.setVisible(false);
         blockJLabel.setVisible(true);
         newCombination = false;
+        borderWidth = 5;
 
 		try 
 		{
@@ -54,7 +56,7 @@ public class Block2048
 		    edgeSpace = 5;
 		    
 		    blockJLabel = new JLabel();
-	        blockJLabel.setBounds (10, 10, 10, 10); // arbitrary, will change later
+	        blockJLabel.setBounds (10, 10, blockWidth, blockHeight); // arbitrary, will change later
 	        
 	        Controller2048.gameFrame2048.getContentPane().add(blockJLabel);
 	        blockJLabel.setVisible(false);
@@ -252,14 +254,25 @@ public class Block2048
 	
 	public void addBorder()
 	{
-		javax.swing.border.Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+		javax.swing.border.Border border = BorderFactory.createLineBorder(Color.YELLOW, borderWidth);
 		blockJLabel.setBorder(border);
+		if(blockValue == 2)
+		{
+			num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight  + 4, edgeSpace + 3*spaceBetween + 3*blockWidth , blockWidth , blockHeight );
+	    }
+		else if(blockValue == 4)
+		{
+			num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockWidth  + 4, edgeSpace + 3*spaceBetween + 3*blockWidth , blockWidth , blockHeight );
+		}
+		pic = new ImageIcon (num);
 		
 	}
 	
 	public void removeBorder()
 	{
+		setBlockValue(blockValue);
 		blockJLabel.setBorder(null);
+		
 	}
 	
 }
