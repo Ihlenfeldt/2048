@@ -22,10 +22,9 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 
 	public static int ARRAY_WIDTH = 7;
 	public static int ARRAY_HEIGHT = ARRAY_WIDTH;
-	public static final int RUSSIAN_ARRAY_HEIGHT = ARRAY_WIDTH +2;
 	public static int FRAME_WIDTH = 67*ARRAY_WIDTH;
 	public static int FRAME_HEIGHT = 67*ARRAY_HEIGHT + 60;
-	public static final int RUSSIAN_FRAME_HEIGHT = FRAME_HEIGHT+132;
+	
 
 	//Key_Codes for keyListener below
 	public static final int UP_ARROW = 38;
@@ -155,7 +154,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				myGame = null;
 			}
 			gameFrame2048.getContentPane().removeAll();
-			 myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
+			myGame = new OriginalGameBoard(gameFrame2048, ARRAY_WIDTH, ARRAY_HEIGHT);
 		}
 		else
 		{
@@ -203,10 +202,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				}
 				else if(myGame.isGameOver())
 				{
-					finished = true;
-					
-					
-					
+					finished = true;	
 				}
 			}
 			
@@ -403,7 +399,10 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	    if(playOrMain == 1)
 	    {
 	    	System.out.println("New Game");
+	    	
 	    	newGame();
+	    	gameFrame2048.setVisible(false);
+	    	gameFrame2048.setVisible(true);
 	    }
 	    else
 	    {
