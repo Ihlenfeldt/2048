@@ -111,20 +111,13 @@ public class OriginalGameBoard implements GameBoard
 	@Override
 	public boolean isGameOver() 
 	{
-		boolean gameOver = true;
-		
-			for(int i = 0; i < length; i++) 
-			{
-				for( int j = 0; j < length; j++)
-				{
-					if(isThereValidMove(i,j)== true ||gameArray[i][j].getValue()==0) 
-					{
-						gameOver = false;
-						break;
-					}
-				}	
-			}	
-			
+		boolean gameOver = false;
+		if(isFull())
+		{
+			if(isThereValidMove()== false) {
+				gameOver = true;
+			}
+		}
 		return gameOver;
 	}
 
@@ -255,140 +248,10 @@ public class OriginalGameBoard implements GameBoard
 		
 	}
 	
-	public boolean isThereValidMove(int i, int j)
+	public boolean isThereValidMove()
 	{
-		boolean isValidMove = false;
-		  if(i==0) 
-			{
-				//If block is in the top row, left column
-				if(j==0) 
-				{
-					if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-				}
-				//If block is in the top row, right column.
-				else if(j== length-1)
-				{
-					if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-
-				}
-				//If block is in the top row but not in the left or right corner
-				else
-				{
-					if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					
-					if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-
-				}
-			}
-			// If block is in the bottom row
-			else if(i == height-1)
-			{
-				//If block is in the bottom left corner
-				if(j == 0)
-				{
-					if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-
-					if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-
-				}
-				//If block is in the bottom row, right column
-				else if(j == length -1)
-				{
-					if(lookLeft(i,j).getValue()== gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-
-				}
-				//If block is in the bottom row, but not in the bottom corners
-				else
-				{
-		
-					if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					if(lookUp(i,j).getValue()== gameArray[i][j].getValue())
-					{
-						isValidMove = true;
-					}
-					
-				}
-			}
-			//If block is in the left column, but not in the top or bottom left corners
-			else if(j == 0)
-			{
-				if(lookRight(i,j).getValue() == gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-				
-			}
-			//If block is in the right column, but not in the top or bottom right corners
-			else if(j== length -1)
-			{
-				if(lookLeft(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-				if(lookDown(i,j).getValue()==gameArray[i][j].getValue())
-				{
-					isValidMove = true;
-				}
-			}	
-			return isValidMove;
-	 }  
-	
+		return false;
+	}
 	
 	public void printArray() 
 	{
