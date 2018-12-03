@@ -111,20 +111,21 @@ public class OriginalGameBoard implements GameBoard
 	@Override
 	public boolean isGameOver() 
 	{
-		boolean gameOver = true;
-		
-			for(int i = 0; i < length; i++) 
+		boolean gameOver = false;
+		if(isFull())
+		{
+			for(int i = 0; i <length;i++ )
 			{
-				for( int j = 0; j < length; j++)
+				for(int j = 0; j < length; j++)
 				{
-					if(isThereValidMove(i,j)== true ||gameArray[i][j].getValue()==0) 
+				
+					if(isThereValidMove(i,j)== false) 
 					{
-						gameOver = false;
-						break;
+						gameOver = true;
 					}
-				}	
-			}	
-			
+				}
+			}
+		}
 		return gameOver;
 	}
 
@@ -258,6 +259,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public boolean isThereValidMove(int i, int j)
 	{
+		
 		boolean isValidMove = false;
 		  if(i==0) 
 			{
@@ -407,6 +409,7 @@ public class OriginalGameBoard implements GameBoard
 		return isValidMove;
 	 }  
 	
+
 	
 	public void printArray() 
 	{

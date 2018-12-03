@@ -388,7 +388,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	    if(playOrMain == RUSSIAN_GAME)
 	    {
 	    	System.out.println("New Game");
-	    	
 	    	newGame();
 	    	gameFrame2048.setVisible(false);
 	    	gameFrame2048.setVisible(true);
