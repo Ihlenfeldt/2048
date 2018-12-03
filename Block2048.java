@@ -231,11 +231,6 @@ public class Block2048
 		newCombination = passedNewCombination;
 	}
 	
-	public boolean isMoving() 
-	{
-		return !lockedIn;
-	}
-	
 	public void drawBlock() 
 	{
 		

@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
-public class Controller2048 extends TimerTask implements MouseListener, KeyListener{
+public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
 
@@ -96,7 +96,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048.setBackground(Color.GRAY);
 		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
 		
-		contentPane2048.addMouseListener(this);
 		contentPane2048.addKeyListener(this);
 		contentPane2048.setFocusable(true);
 		((JComponent) contentPane2048).setOpaque(true);
@@ -198,7 +197,11 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				if(time >= 5)
 				{
 					time = 0;
-					myGame.populate();
+					if(!myGame.isFull())
+					{
+						myGame.populate();
+					}
+					((OriginalGameBoard) myGame).reduceScore(100);
 				}
 				else if(myGame.isGameOver())
 				{
@@ -245,35 +248,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) 
-	{
-	
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) 
-	{
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) 
-	{
-	
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) 
-	{
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) 
-	{
-		
-	}
 
 	@Override
 	public void keyPressed(KeyEvent e) 
