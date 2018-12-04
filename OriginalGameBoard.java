@@ -91,8 +91,10 @@ public class OriginalGameBoard implements GameBoard
 	@Override
 	public boolean isGameOver() 
 	{
-		boolean gameOver = true;
-		
+		boolean gameOver = false;
+		if(isFull())
+		{
+			gameOver = true;
 			for(int i = 0; i < length; i++) 
 			{
 				for( int j = 0; j < length; j++)
@@ -105,7 +107,7 @@ public class OriginalGameBoard implements GameBoard
 					}
 				}	
 			}
-		
+		}
 		System.out.println("Game over: "+gameOver);
 		
 		return gameOver;
@@ -540,8 +542,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void reduceScore(int reduceScoreBy)
 	{
-		System.out.println("I'm in reduceScore");
-		gameScore = gameScore - reduceScoreBy;
+		gameScore = (int) (gameScore - (gameScore* 0.10));
 	}
 
 
