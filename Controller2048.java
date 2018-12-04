@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-
+	private static final long serialVersionUID = 1L;
+	
 	public static int ARRAY_WIDTH = 7;
 	public static int ARRAY_HEIGHT = ARRAY_WIDTH;
 	public static int FRAME_WIDTH = 67*ARRAY_WIDTH;
@@ -74,7 +75,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static int score = 0;
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
-	
+		
 		menu = new MainMenu();
 		menuFrame = menu.getFrame();
 		menuFrame.setVisible(true);
@@ -179,8 +180,10 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public void run() 
 	{
 		System.out.println(time);
+		System.out.println("First in Run");
 		if(gameType == ORIGINAL_GAME)
 		{
+			System.out.println("");
 			if(finished && gameIsReady)
 			{
 				gameIsReady = false;
@@ -189,24 +192,33 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			}
 			else if(gameIsReady)
 			{
+				System.out.println("b");
 				myGame.draw();
 				System.out.println("Drawing");
 				time++;
+				System.out.println("Score: " + score);
 				score = myGame.getScore();
+				System.out.println("Score: " + score);
 				bar.setText("Score: " + score);
+				
 				if(time >= 5)
 				{
+					System.out.println("c");
+					System.out.println("Should reduce score");
 					time = 0;
 					if(!myGame.isFull())
 					{
+						
 						myGame.populate();
 					}
 					((OriginalGameBoard) myGame).reduceScore(100);
 				}
-				else if(myGame.isGameOver())
+				System.out.println("d");
+				if(myGame.isGameOver())
 				{
 					finished = true;	
 				}
+				System.out.println("e");
 			}
 			
 		}

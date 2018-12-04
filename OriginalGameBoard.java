@@ -43,6 +43,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void populate() 
 	{
+		//System.out.println("I'm populating");
 		//this double will be used to determine if a 2 or a 4 is printed
 		double whatNumber = Math.random();
 		boolean stillPicking = true;
@@ -68,11 +69,10 @@ public class OriginalGameBoard implements GameBoard
 		}
 	}
 
-	
 	public boolean isFull()
 	{
 		boolean isArrayFull = true;
-		
+	
 		for(int i = 0; i < length; i++) 
 		{
 			for(int j = 0; j < length; j++)
@@ -84,33 +84,30 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-	
+		
 		return isArrayFull;
 	}
-	
 	
 	@Override
 	public boolean isGameOver() 
 	{
-		boolean gameOver = false;
-		if(isFull()) 
-		{
-			gameOver = true;
+		boolean gameOver = true;
+		
 			for(int i = 0; i < length; i++) 
 			{
 				for( int j = 0; j < length; j++)
 				{
-					if(isThereValidMove(i,j)== true) 
+					if(isThereValidMove(i,j)) 
 					{
-						System.out.println("GAME OVER ***** IS THERE A VALID MOVE");
+						//System.out.println("IN isGameOver() *****THERE IS A VALID MOVE");
 						gameOver = false;
 						break;
 					}
 				}	
 			}
-		}
-				
-			
+		
+		System.out.println("Game over: "+gameOver);
+		
 		return gameOver;
 	}
 
@@ -142,8 +139,6 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-		
-
 	}
 
 	@Override
@@ -175,8 +170,6 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-		
-		
 	}
 
 	@Override
@@ -461,7 +454,10 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 		moveRight();
-		populate();
+		if(!isFull())
+		{
+			populate();
+		}
 		printArray();
 		System.out.println("Score is: " + gameScore);
 	}
@@ -480,7 +476,10 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 		moveLeft();
-		populate();
+		if(!isFull())
+		{
+			populate();
+		}
 		printArray();
 		System.out.println("Score is: " + gameScore);
 	}
@@ -499,7 +498,10 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 		moveUp();
-		populate();
+		if(!isFull())
+		{
+			populate();
+		}
 		printArray();
 		System.out.println("Score is: " + gameScore);
 	}
@@ -518,7 +520,10 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 		moveDown();
-		populate();
+		if(!isFull())
+		{
+			populate();
+		}
 		printArray();
 		System.out.println("Score is: " + gameScore);
 	}
@@ -535,6 +540,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void reduceScore(int reduceScoreBy)
 	{
+		System.out.println("I'm in reduceScore");
 		gameScore = gameScore - reduceScoreBy;
 	}
 
