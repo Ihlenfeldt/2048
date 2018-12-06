@@ -58,7 +58,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static final int TIME_BETWEEN_MOVES = 2000;//Time = 1 second
+	public static final int TIME_BETWEEN_MOVES = 700;//Time = 1 second
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves

@@ -43,11 +43,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void populate() 
 	{
-<<<<<<< HEAD
-		System.out.println("populating");
-=======
 		//System.out.println("I'm populating");
->>>>>>> baf00d508b050fa478fd801208a80d9f85350ae4
 		//this double will be used to determine if a 2 or a 4 is printed
 		double whatNumber = Math.random();
 		boolean stillPicking = true;
@@ -96,12 +92,10 @@ public class OriginalGameBoard implements GameBoard
 	public boolean isGameOver() 
 	{
 		boolean gameOver = false;
-<<<<<<< HEAD
 
-		if(isFull()) 
-=======
+
+
 		if(isFull())
->>>>>>> baf00d508b050fa478fd801208a80d9f85350ae4
 		{
 			gameOver = true;
 			for(int i = 0; i < length; i++) 
@@ -110,10 +104,6 @@ public class OriginalGameBoard implements GameBoard
 				{
 					if(isThereValidMove(i,j)) 
 					{
-<<<<<<< HEAD
-=======
-						//System.out.println("IN isGameOver() *****THERE IS A VALID MOVE");
->>>>>>> baf00d508b050fa478fd801208a80d9f85350ae4
 						gameOver = false;
 						break;
 					}
@@ -124,11 +114,7 @@ public class OriginalGameBoard implements GameBoard
 				}
 			}
 		}
-<<<<<<< HEAD
-=======
-		System.out.println("Game over: "+gameOver);
-		
->>>>>>> baf00d508b050fa478fd801208a80d9f85350ae4
+
 		return gameOver;
 	}
 
