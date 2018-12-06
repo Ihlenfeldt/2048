@@ -48,6 +48,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	//These are tracking variables used in the game.
 	public static boolean gameIsReady;
 	public static int time;
+	public int timerTime = 0;
 	static GameBoard myGame; 
 	public static boolean finished;
 	public static Graphics g;
@@ -58,7 +59,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
+	public static int timeBetweenMoves = 500;//Time = 0.7 seconds
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -72,6 +73,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JFrame gameFrame2048;
 	private static Container contentPane2048;
 	private java.util.Timer universalGameTimer = new java.util.Timer();
+	
 	public static int score = 0;
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
@@ -95,7 +97,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
-		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
+		universalGameTimer.schedule(this,0,timeBetweenMoves);
 		
 		contentPane2048.addKeyListener(this);
 		contentPane2048.setFocusable(true);
@@ -179,8 +181,6 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	@Override
 	public void run() 
 	{
-		System.out.println(time);
-		System.out.println("First in Run");
 		if(gameType == ORIGINAL_GAME)
 		{
 			System.out.println("");
@@ -192,33 +192,24 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			}
 			else if(gameIsReady)
 			{
-				System.out.println("b");
 				myGame.draw();
-				System.out.println("Drawing");
 				time++;
-				System.out.println("Score: " + score);
 				score = myGame.getScore();
-				System.out.println("Score: " + score);
 				bar.setText("Score: " + score);
 				
 				if(time >= 5)
 				{
-					System.out.println("c");
-					System.out.println("Should reduce score");
 					time = 0;
 					if(!myGame.isFull())
 					{
-						
 						myGame.populate();
 					}
 					((OriginalGameBoard) myGame).reduceScore(100);
 				}
-				System.out.println("d");
 				if(myGame.isGameOver())
 				{
 					finished = true;	
 				}
-				System.out.println("e");
 			}
 			
 		}
@@ -256,7 +247,21 @@ public class Controller2048 extends TimerTask implements KeyListener{
 						}
 					}
 				}
+				if(timerTime  > 5)
+				{
+				/*	timeBetweenMoves = 200;
+					try {
+						universalGameTimer.cancel();
+						java.util.Timer universalGameTimer = new java.util.Timer();
+						universalGameTimer.schedule(this, 0, timeBetweenMoves);
+					}
+					catch(IllegalStateException e) {
+						System.out.print("Catch");
+					}*/
+				}
+				timerTime ++;
 			}
+			
 		}
 	}
 
