@@ -11,8 +11,6 @@ public class OriginalGameBoard implements GameBoard
 	protected Block2048[][] gameArray;
 	int length = 0;
 	int height = 0;
-	private int capacity = 0;
-	private int numberOfBlocks = 0;
 	public int gameScore = 0;
 	Block2048 newestBlock;
 
@@ -22,12 +20,9 @@ public class OriginalGameBoard implements GameBoard
 		length = passedLength;
 		height = passedHeight;
 		fillGameBoard(frame);
-		capacity = length*height;
 		printArray();
-
 	}
 	
-
 	private void fillGameBoard(JFrame frame) 
 	{
 		for(int i = 0; i < height; i++)
@@ -48,6 +43,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void populate() 
 	{
+		System.out.println("populating");
 		//this double will be used to determine if a 2 or a 4 is printed
 		double whatNumber = Math.random();
 		boolean stillPicking = true;
@@ -72,13 +68,11 @@ public class OriginalGameBoard implements GameBoard
 			}
 		}
 	}
-	public int getCapacity(){
-		return this.capacity;
-	}
+
 	
 	public boolean isFull()
 	{
-		boolean answer = true;
+		boolean isArrayFull = true;
 		
 		for(int i = 0; i < length; i++) 
 		{
@@ -86,43 +80,37 @@ public class OriginalGameBoard implements GameBoard
 			{
 				if(gameArray[i][j].getValue()== 0)
 				{
-					answer = false;
+					isArrayFull = false;
 					break;
 				}
 			}
 		}
 	
-		return answer;
+		return isArrayFull;
 	}
 	
-	public void setCapacity(int newCapacity) {
-		this.capacity = newCapacity;
-	}
-	
-	public int getNumberOfBlocks() {
-		return this.numberOfBlocks;
-	}
-	
-	//Increment the number of blocks variable by 1.
-	public void addBlock() {
-		this.numberOfBlocks++;
-	}
 	
 	@Override
 	public boolean isGameOver() 
 	{
 		boolean gameOver = false;
-		if(isFull())
+
+		if(isFull()) 
 		{
-			for(int i = 0; i <length;i++ )
+			gameOver = true;
+			for(int i = 0; i < length; i++) 
 			{
 				for(int j = 0; j < length; j++)
 				{
-				
-					if(isThereValidMove(i,j)== false) 
+					if(isThereValidMove(i,j)== true) 
 					{
-						gameOver = true;
+						gameOver = false;
+						break;
 					}
+				}
+				if(gameOver == false)
+				{
+					break;
 				}
 			}
 		}
@@ -259,6 +247,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public boolean isThereValidMove(int i, int j)
 	{
+		
 		
 		boolean isValidMove = false;
 		  if(i==0) 
@@ -403,6 +392,10 @@ public class OriginalGameBoard implements GameBoard
 				{
 					isValidMove = true;
 				}
+				if(lookUp(i,j).getValue()==gameArray[i][j].getValue())
+				{
+					isValidMove = true;
+				}
 				
 			}
 		}
@@ -544,6 +537,12 @@ public class OriginalGameBoard implements GameBoard
 	public int getScore()
 	{
 		return gameScore;
+	}
+	
+	public void reduceScore(int reduceScoreBy)
+	{
+		gameScore = gameScore - reduceScoreBy;
+		
 	}
 
 

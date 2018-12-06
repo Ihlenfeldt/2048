@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
-public class Controller2048 extends TimerTask implements MouseListener, KeyListener{
+public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
 
@@ -57,7 +57,7 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static final int TIME_BETWEEN_MOVES = 700;//Time = 0.7 seconds
+	public static final int TIME_BETWEEN_MOVES = 2000;//Time = 1 second
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -96,7 +96,6 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		contentPane2048.setBackground(Color.GRAY);
 		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
 		
-		contentPane2048.addMouseListener(this);
 		contentPane2048.addKeyListener(this);
 		contentPane2048.setFocusable(true);
 		((JComponent) contentPane2048).setOpaque(true);
@@ -193,17 +192,29 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 				myGame.draw();
 				System.out.println("Drawing");
 				time++;
+				System.out.println("before score");
+				
 				score = myGame.getScore();
 				bar.setText("Score: " + score);
+				System.out.println("after score");
 				if(time >= 5)
 				{
 					time = 0;
-					myGame.populate();
+					System.out.println(myGame.isFull());
+					if(!myGame.isFull())
+					{
+						myGame.populate();
+					}
+					System.out.println("reducing score");
+					((OriginalGameBoard) myGame).reduceScore(100);
+					System.out.println("reduced score");
 				}
-				else if(myGame.isGameOver())
+				if(myGame.isGameOver())
 				{
+					System.out.println("FINISHED");
 					finished = true;	
 				}
+				
 			}
 			
 		}
@@ -245,39 +256,11 @@ public class Controller2048 extends TimerTask implements MouseListener, KeyListe
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) 
-	{
-	
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) 
-	{
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) 
-	{
-	
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) 
-	{
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) 
-	{
-		
-	}
 
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
+		System.out.println("Key pressed");
 		//if a key is pressed, the timer starts over. 
 		time = 0;
 
