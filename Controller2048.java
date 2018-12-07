@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
+
 public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
@@ -58,7 +59,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static final int TIME_BETWEEN_MOVES = 700;//Time = 1 second
+	public static final int TIME_BETWEEN_MOVES = 2000;//Time = 1 second
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -73,6 +74,8 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	private static Container contentPane2048;
 	private java.util.Timer universalGameTimer = new java.util.Timer();
 	public static int score = 0;
+	
+	
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
 		

@@ -550,12 +550,7 @@ public class OriginalGameBoard implements GameBoard
 	
 	public void reduceScore(int reduceScoreBy)
 	{
-<<<<<<< HEAD
-		gameScore = gameScore - reduceScoreBy;
-		
-=======
 		gameScore = (int) (gameScore - (gameScore* 0.10));
->>>>>>> baf00d508b050fa478fd801208a80d9f85350ae4
 	}
 
 
