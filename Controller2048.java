@@ -49,6 +49,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	//These are tracking variables used in the game.
 	public static boolean gameIsReady;
 	public static int time;
+	public int timerTime = 0;
 	static GameBoard myGame; 
 	public static boolean finished;
 	public static Graphics g;
@@ -59,7 +60,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static final int TIME_BETWEEN_MOVES = 2000;//Time = 1 second
+	public static final int TIME_BETWEEN_MOVES = 700;//Time = 1 second
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -73,8 +74,8 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JFrame gameFrame2048;
 	private static Container contentPane2048;
 	private java.util.Timer universalGameTimer = new java.util.Timer();
-	public static int score = 0;
 	
+	public static int score = 0;
 	
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
@@ -182,8 +183,6 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	@Override
 	public void run() 
 	{
-		System.out.println(time);
-		System.out.println("First in Run");
 		if(gameType == ORIGINAL_GAME)
 		{
 			System.out.println("");
@@ -195,21 +194,18 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			}
 			else if(gameIsReady)
 			{
-				
+
 				myGame.draw();
-				System.out.println("Drawing");
 				time++;
 				score = myGame.getScore();
-				System.out.println("Score: " + score);
 				bar.setText("Score: " + score);
 
-				if(time >= 5)
+				if(time >= 10)
 				{
 					time = 0;
 					System.out.println(myGame.isFull());
 					if(!myGame.isFull())
 					{
-						
 						myGame.populate();
 					}
 					((OriginalGameBoard) myGame).reduceScore(100);
@@ -256,7 +252,9 @@ public class Controller2048 extends TimerTask implements KeyListener{
 						}
 					}
 				}
+				
 			}
+			
 		}
 	}
 
@@ -264,7 +262,6 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-		System.out.println("Key pressed");
 		//if a key is pressed, the timer starts over. 
 		time = 0;
 
@@ -329,13 +326,13 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			case RIGHT_ARROW:
 			case NUMPAD_6:
 			case KEY_D:
-				myGame.moveRight();
+				((RussianGameBoard) myGame).moveRight();
 			break;
 			
 			case LEFT_ARROW:
 			case NUMPAD_4:
 			case KEY_A:
-				myGame.moveLeft();
+				((RussianGameBoard) myGame).moveLeft();
 			break;
 		
 			case KEY_SPACE:
