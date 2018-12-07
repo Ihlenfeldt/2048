@@ -59,7 +59,9 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-	public static int timeBetweenMoves = 500;//Time = 0.7 seconds
+
+	public static final int TIME_BETWEEN_MOVES = 700;//Time = 1 second
+
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -97,7 +99,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 		contentPane2048 = gameFrame2048.getContentPane();
 		contentPane2048.setLayout(null);
 		contentPane2048.setBackground(Color.GRAY);
-		universalGameTimer.schedule(this,0,timeBetweenMoves);
+		universalGameTimer.schedule(this,0,TIME_BETWEEN_MOVES);
 		
 		contentPane2048.addKeyListener(this);
 		contentPane2048.setFocusable(true);
@@ -192,14 +194,16 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			}
 			else if(gameIsReady)
 			{
+
 				myGame.draw();
 				time++;
 				score = myGame.getScore();
 				bar.setText("Score: " + score);
-				
-				if(time >= 5)
+
+				if(time >= 10)
 				{
 					time = 0;
+					System.out.println(myGame.isFull());
 					if(!myGame.isFull())
 					{
 						myGame.populate();
@@ -210,6 +214,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 				{
 					finished = true;	
 				}
+
 			}
 			
 		}
@@ -247,19 +252,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 						}
 					}
 				}
-				if(timerTime  > 5)
-				{
-				/*	timeBetweenMoves = 200;
-					try {
-						universalGameTimer.cancel();
-						java.util.Timer universalGameTimer = new java.util.Timer();
-						universalGameTimer.schedule(this, 0, timeBetweenMoves);
-					}
-					catch(IllegalStateException e) {
-						System.out.print("Catch");
-					}*/
-				}
-				timerTime ++;
+				
 			}
 			
 		}
@@ -333,13 +326,13 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			case RIGHT_ARROW:
 			case NUMPAD_6:
 			case KEY_D:
-				myGame.moveRight();
+				((RussianGameBoard) myGame).moveRight();
 			break;
 			
 			case LEFT_ARROW:
 			case NUMPAD_4:
 			case KEY_A:
-				myGame.moveLeft();
+				((RussianGameBoard) myGame).moveLeft();
 			break;
 		
 			case KEY_SPACE:
@@ -379,7 +372,6 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	    if(playOrMain == RUSSIAN_GAME)
 	    {
 	    	System.out.println("New Game");
-	    	
 	    	newGame();
 	    	gameFrame2048.setVisible(false);
 	    	gameFrame2048.setVisible(true);

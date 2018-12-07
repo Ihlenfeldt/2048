@@ -92,24 +92,29 @@ public class OriginalGameBoard implements GameBoard
 	public boolean isGameOver() 
 	{
 		boolean gameOver = false;
+
+
+
 		if(isFull())
 		{
 			gameOver = true;
 			for(int i = 0; i < length; i++) 
 			{
-				for( int j = 0; j < length; j++)
+				for(int j = 0; j < length; j++)
 				{
 					if(isThereValidMove(i,j)) 
 					{
-						//System.out.println("IN isGameOver() *****THERE IS A VALID MOVE");
 						gameOver = false;
 						break;
 					}
-				}	
+				}
+				if(gameOver == false)
+				{
+					break;
+				}
 			}
 		}
-		System.out.println("Game over: "+gameOver);
-		
+
 		return gameOver;
 	}
 
@@ -239,6 +244,8 @@ public class OriginalGameBoard implements GameBoard
 	
 	public boolean isThereValidMove(int i, int j)
 	{
+		
+		
 		boolean isValidMove = false;
 		  if(i==0) 
 			{
@@ -392,6 +399,7 @@ public class OriginalGameBoard implements GameBoard
 		return isValidMove;
 	 }  
 	
+
 	
 	public void printArray() 
 	{

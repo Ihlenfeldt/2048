@@ -227,7 +227,7 @@ public class Block2048
 	}
 	
 	public void setNewCombination(boolean passedNewCombination) {
-		System.out.println("SET BLOCK " + this.yCoord/67 +", "+ this.xCoord/67 + " NEW COMBO TO: " + passedNewCombination);
+		//System.out.println("SET BLOCK " + this.yCoord/67 +", "+ this.xCoord/67 + " NEW COMBO TO: " + passedNewCombination);
 		newCombination = passedNewCombination;
 	}
 	
