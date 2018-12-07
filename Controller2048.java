@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
+
 public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
@@ -56,9 +57,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	public static JLabel bar;
 	public static int barHeight;
 
-
 	public static final int TIME_BETWEEN_MOVES = 700;//Time = 1 second
-
 	public static final int MAX_TIME_TO_MOVE = 6000;//Time = 6 seconds.
 	
 	public static long currentTime = System.currentTimeMillis();//This will be used to track max time between moves
@@ -74,6 +73,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 	private java.util.Timer universalGameTimer = new java.util.Timer();
 	
 	public static int score = 0;
+	
 	
 	public Controller2048(String JFrameTitle, int locationX, int locationY, int windowWidth, int windowHeight) {
 		
@@ -121,24 +121,24 @@ public class Controller2048 extends TimerTask implements KeyListener{
 		//Now to reset sizing variables
 		if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 4)
 		{
-			FRAME_WIDTH = 68*ARRAY_WIDTH;
-			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 20;
+			FRAME_WIDTH = 67*ARRAY_WIDTH;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		else if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 8)
 		{
-			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
-			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 12;
+			FRAME_WIDTH = 67*ARRAY_WIDTH - 1;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 5)
 		{
-			FRAME_WIDTH = 68*ARRAY_WIDTH;
-			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 7;
+			FRAME_WIDTH = 67*ARRAY_WIDTH;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 7)
 		{
 			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
-			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 1;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		
 		gameFrame2048.getContentPane().setSize(FRAME_WIDTH, FRAME_HEIGHT - barHeight - 22);
