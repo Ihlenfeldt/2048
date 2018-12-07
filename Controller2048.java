@@ -124,24 +124,24 @@ public class Controller2048 extends TimerTask implements KeyListener{
 		//Now to reset sizing variables
 		if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 4)
 		{
-			FRAME_WIDTH = 68*ARRAY_WIDTH;
-			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 20;
+			FRAME_WIDTH = 67*ARRAY_WIDTH;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		else if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 8)
 		{
-			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
-			FRAME_HEIGHT = 69*ARRAY_HEIGHT + barHeight + 12;
+			FRAME_WIDTH = 67*ARRAY_WIDTH - 1;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 5)
 		{
-			FRAME_WIDTH = 68*ARRAY_WIDTH;
-			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 7;
+			FRAME_WIDTH = 67*ARRAY_WIDTH;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 7)
 		{
 			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
-			FRAME_HEIGHT = 70*ARRAY_HEIGHT + barHeight + 1;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
 		}
 		
 		gameFrame2048.getContentPane().setSize(FRAME_WIDTH, FRAME_HEIGHT - barHeight - 22);

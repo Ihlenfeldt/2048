@@ -137,7 +137,7 @@ public class Block2048
 	    	setLockedIn(true);
 	    	break;
 	    case 2:
-	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
+	    	num = img.getSubimage(edgeSpace + 3*spaceBetween + 3*blockHeight-1, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
 	    	break;
 	    case 4:
 	    	num = img.getSubimage(edgeSpace + 2*spaceBetween + 2*blockWidth, edgeSpace + 3*spaceBetween + 3*blockWidth, blockWidth, blockHeight);
@@ -265,9 +265,9 @@ public class Block2048
 	
 	public void removeBorder()
 	{
-		setBlockValue(blockValue);
 		blockJLabel.setBorder(null);
-		
+		setBlockValue(blockValue);
+		drawBlock();
 	}
 	
 }
