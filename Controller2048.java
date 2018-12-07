@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.TimerTask;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -19,7 +17,6 @@ import javax.swing.JOptionPane;
 public class Controller2048 extends TimerTask implements KeyListener{
 
 	public static final int NUMBER_OF_STARTING_BLOCKS = 2;
-	private static final long serialVersionUID = 1L;
 	
 	public static int ARRAY_WIDTH = 7;
 	public static int ARRAY_HEIGHT = ARRAY_WIDTH;
@@ -248,6 +245,7 @@ public class Controller2048 extends TimerTask implements KeyListener{
 						}
 						else
 						{
+							
 							myGame.fall();
 						}
 					}

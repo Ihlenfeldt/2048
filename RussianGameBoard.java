@@ -247,6 +247,11 @@ public class RussianGameBoard implements GameBoard {
 					gameArray[bottom][col].setLockedIn(false);
 					gameArray[row][col].setBlockValue(0);
 					fall();
+					didWeDropABlock = true;
+					break;
+				}
+				if(didWeDropABlock)
+				{
 					break;
 				}
 			}
