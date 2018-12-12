@@ -131,17 +131,10 @@ public class RussianGameBoard implements GameBoard {
 							{
 								for(int combineCol = 0; combineCol < length; combineCol++)
 								{
-										combo = combineAround(combineRow,combineCol);
-										if(combo)
-										{
-											wasThereACombination = true;
-										}
-										//System.out.println("Did we combine: "+ wasThereACombination);
+										wasThereACombination = combineAround(combineRow,combineCol);
 								}
 							}
-							System.out.println("Loop: " + loopCount);
 						}
-						combineAll();
 						needToPopulate = true;
 					}
 				
@@ -164,27 +157,16 @@ public class RussianGameBoard implements GameBoard {
 						{
 							for(int combineCol = 0; combineCol < length; combineCol++)
 							{
-									combo = combineAround(combineRow,combineCol);
+									wasThereACombination = combineAround(combineRow,combineCol);
 									//if there was a combination it sets the sentinel value to true to keep the combination loop going else sentinel value = false and exit loop
-									if(combo)
-									{
-										wasThereACombination = true;
-									}
-									//System.out.println("Did we combine: "+ wasThereACombination);
 							}
 						}
-						System.out.println("Loop: " + loopCount);
 					}
-					
-					
-					loopCount = 0;
-					combineAll();
 					needToPopulate = true;
 				}
 				
 			}
 		}
-	  
 	 printArray();
 	}
 	
@@ -403,12 +385,10 @@ public Block2048 lookUp(int row, int col) {
 	//This function looks for combinations and combines around the block which calls the function.
 	public boolean combineAround(int row, int col)
 	{
-		//System.out.println(row + ", "+ col);
 		boolean didWeCombine = false;
 		gameArray[row][col].setNewCombination(false);
 		combineTotal= gameArray[row][col].getValue();
 		Block2048 myBlock = gameArray[row][col];
-		//System.out.println(myBlock.getValue());
 		
 		//If the block is in the top row
 		if(row==0) 
@@ -626,7 +606,7 @@ public Block2048 lookUp(int row, int col) {
 		else
 		{
 			//System.out.println("Middle Array combine start: " + combineTotal);
-			if(lookRight(row,col).getValue() == gameArray[row][col].getValue() && gameArray[row][col].getValue() != 0)
+			if(gameArray[row][col].getValue() != 0 && (lookRight(row,col).getValue() == gameArray[row][col].getValue()))
 			{
 				combineTotal = combineTotal*2;
 				//System.out.println("Middle Array combine: " + combineTotal);
@@ -634,7 +614,7 @@ public Block2048 lookUp(int row, int col) {
 				gameArray[row][col].setNewCombination(true);
 				setScore(combineTotal);
 			}
-			if(lookLeft(row,col).getValue()==gameArray[row][col].getValue() && gameArray[row][col].getValue() != 0)
+			if( gameArray[row][col].getValue() != 0 && (lookLeft(row,col).getValue()==gameArray[row][col].getValue()))
 			{
 				combineTotal = combineTotal*2;
 				//System.out.println("Middle Array combine: " + combineTotal);
@@ -642,7 +622,7 @@ public Block2048 lookUp(int row, int col) {
 				gameArray[row][col].setNewCombination(true);
 				setScore(combineTotal);
 			}
-			if(lookUp(row,col).getValue()==gameArray[row][col].getValue() && gameArray[row][col].getValue() != 0)
+			if(gameArray[row][col].getValue() != 0 && (lookUp(row,col).getValue()==gameArray[row][col].getValue()))
 			{
 				combineTotal = combineTotal*2;
 				//System.out.println("Middle Array combine: " + combineTotal);
@@ -650,7 +630,7 @@ public Block2048 lookUp(int row, int col) {
 				gameArray[row][col].setNewCombination(true);
 				setScore(combineTotal);
 			}
-			if(lookDown(row,col).getValue()==gameArray[row][col].getValue() && gameArray[row][col].getValue() != 0)
+			if(gameArray[row][col].getValue() != 0 && (lookDown(row,col).getValue()==gameArray[row][col].getValue()))
 			{
 				combineTotal = combineTotal*2;
 				//System.out.println("Middle Array combine: " + combineTotal);
@@ -665,7 +645,6 @@ public Block2048 lookUp(int row, int col) {
 		
 		didWeCombine = gameArray[row][col].isNewCombination();
 		moveDown();
-		//System.out.println("Combine Total: " + combineTotal);
 		combineTotal = 0;
 		return didWeCombine;		
 	}
@@ -688,20 +667,7 @@ public Block2048 lookUp(int row, int col) {
 	@Override
 	public void combineDown() {
 		
-		for(int col = 0; col < length; col++) {
-			for(int row = height -1; row > 0; row--) {
-				if(gameArray[row][col].getValue()==gameArray[row-1][col].getValue()) {
-					//sum the two block values and assign to the block on the right
-					gameArray[row][col].setBlockValue(gameArray[row][col].getValue()+gameArray[row-1][col].getValue());
-					//addToScore(gameScore,gameArray[row][col].getValue());
-					gameArray[row-1][col].setBlockValue(0);
-				}
-			}
-		}
-		moveDown();
-		//populate();
-		printArray();
-		//System.out.println("Score is: " + gameScore);
+		
 	}
 	
 	public boolean combineAll() {
@@ -712,11 +678,8 @@ public Block2048 lookUp(int row, int col) {
 			for(int row = height-1; row > 0; row--) 
 			{
 				combine = combineAround(row,col);
-				//System.out.println("Did we combine: "+ combine);
 			}
 		}
-		//populate();
-		//printArray();
 		
 		return combine;
 	}
@@ -727,12 +690,12 @@ public Block2048 lookUp(int row, int col) {
 		{
 			for(int col = 0; col < length; col++)
 			{
-				//System.out.print(gameArray[row][col].isNewCombination() + " ");
+				System.out.print(gameArray[row][col].getLockedIn() + " ");
 			}
-			//System.out.println("");
+			System.out.println(" ");
 		}
-		//System.out.println();
-		//System.out.println();
+		System.out.println();
+		System.out.println();
 	}
 
     public int getScore()
