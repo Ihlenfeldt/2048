@@ -228,7 +228,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	//This function takes the falling block and drops it to the bottom empty space in the column.
-	public void dropBlock()
+	public boolean dropBlock()
 	{
 		boolean didWeDropABlock = false;
 		int column = lookForColumn();
@@ -248,16 +248,14 @@ public class RussianGameBoard implements GameBoard {
 					gameArray[row][col].setBlockValue(0);
 					fall();
 					didWeDropABlock = true;
-					break;
-				}
-				if(didWeDropABlock)
-				{
-					break;
+					return didWeDropABlock;
 				}
 			}
 		}
 			needToPopulate = true;
 		}
+		System.out.println("Finished Drop Block");
+		return didWeDropABlock;
 	}
 	//This function looks for the column which has the falling block
 	public int lookForColumn()
@@ -335,6 +333,7 @@ public Block2048 lookUp(int row, int col) {
 	//Populate generates the block that will fall from the top center. A random number between 0 and 1 is generated and depending on that number, a block with a certain value is populated.
 	public void populate() {
 		
+		System.out.println("populated new block");
 		double whatNumber = Math.random();
 		if(whatNumber < 0.167) 
 		{

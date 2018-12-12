@@ -121,24 +121,24 @@ public class Controller2048 extends TimerTask implements KeyListener{
 		//Now to reset sizing variables
 		if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 4)
 		{
-			FRAME_WIDTH = 67*ARRAY_WIDTH;
-			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
+			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 28;
 		}
 		else if(gameType==ORIGINAL_GAME && ARRAY_WIDTH == 8)
 		{
-			FRAME_WIDTH = 67*ARRAY_WIDTH - 1;
-			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
+			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 28;
 		}
 		
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 5)
 		{
-			FRAME_WIDTH = 67*ARRAY_WIDTH;
-			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
+			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 28;
 		}
 		else if(gameType== RUSSIAN_GAME && ARRAY_WIDTH == 7)
 		{
 			FRAME_WIDTH = 67*ARRAY_WIDTH + 5;
-			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 21;
+			FRAME_HEIGHT = 67*ARRAY_HEIGHT + barHeight + 28;
 		}
 		
 		gameFrame2048.getContentPane().setSize(FRAME_WIDTH, FRAME_HEIGHT - barHeight - 22);
@@ -312,24 +312,28 @@ public class Controller2048 extends TimerTask implements KeyListener{
 			case UP_ARROW: 
 			case NUMPAD_8:
 			case KEY_W:
+				System.out.println("Up");
 				myGame.moveUp();
 			break;
 			
 			case DOWN_ARROW: 
 			case NUMPAD_2:
 			case KEY_S:
+				System.out.println("Down");
 				((RussianGameBoard) myGame).dropBlock();
 			break;
 			
 			case RIGHT_ARROW:
 			case NUMPAD_6:
 			case KEY_D:
+				System.out.println("Right");
 				((RussianGameBoard) myGame).moveRight();
 			break;
 			
 			case LEFT_ARROW:
 			case NUMPAD_4:
 			case KEY_A:
+				System.out.println("Left");
 				((RussianGameBoard) myGame).moveLeft();
 			break;
 		
