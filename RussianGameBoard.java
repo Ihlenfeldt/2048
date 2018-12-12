@@ -22,8 +22,6 @@ public class RussianGameBoard implements GameBoard {
 		height = passedHeight;
 		centerColumn = (passedLength/2);
 		fillGameBoard(frame);
-
-		
 	}
 
 	//This function fills the gameboard with blocks which have a value of zero.
@@ -42,7 +40,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	@Override
-	//This function moves the falling block one space to the right
+	//This function moves the falling block one space to the right each time it is called
 	public void moveRight() {
 		for(int row = height-1; row >= 0; row--)
 		{
@@ -66,7 +64,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 
 	@Override
-	//This moves the falling block one space to the left. 
+	//This moves the falling block one space to the left each time it is called
 	public void moveLeft() {
 		for(int row = height-1; row >= 0; row--)
 		{
@@ -94,7 +92,7 @@ public class RussianGameBoard implements GameBoard {
 	}
 	
 	
-	//This function causes the falling block to fall one space. 
+	//This function causes the falling block to fall one space each time it is called.
 	public void fall() {
 		boolean wasThereACombination = false;
 		boolean combo = false;
@@ -239,7 +237,7 @@ public class RussianGameBoard implements GameBoard {
 		System.out.println("Finished Drop Block");
 		return didWeDropABlock;
 	}
-	//This function looks for the column which has the falling block
+	//This function looks for the column which has the falling block in it
 	public int lookForColumn()
 	{
 		int columnValue = -1;
@@ -258,7 +256,7 @@ public class RussianGameBoard implements GameBoard {
 		 return columnValue;
 	}
 	
-	//this function looks for the bottom in the column the falling block is in. 
+	//this function looks for the lowest open space in the column the falling block is in. This open space will be the space the falling block will fall to.  
 	public int lookForBottom(int column)
 	{
 		int bottom = 0;
@@ -277,7 +275,7 @@ public class RussianGameBoard implements GameBoard {
 	//determines if game is over by looking at the center column and determining if it is full.
 	public boolean isGameOver() {
 		boolean gameOver = false;
-		if(isFull()==true)
+		if(isFull())
 		{
 			gameOver = true;
 		}
